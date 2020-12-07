@@ -15,9 +15,13 @@ def random_post_reset!(n = 30)
 end
 
 ActiveRecord::Base.transaction do
-  # Like.destroy_all
+  Like.destroy_all
   Post.destroy_all
   User.destroy_all
+
+  ActiveRecord::Base.connection.reset_pk_sequence!('likes')
+  ActiveRecord::Base.connection.reset_pk_sequence!('posts')
+  ActiveRecord::Base.connection.reset_pk_sequence!('users')
 
   users = []
   15.times do
@@ -50,11 +54,11 @@ ActiveRecord::Base.transaction do
     author: sample_user
   )
 
-  # 15.times do |i|
-  #   Like.create(post: sample_post, user: users[i])
-  #   random_post_reset!
-  #   rand(30).times do
-  #     Like.create(post: posts[sample_post], user: users[i])
-  #   end
-  # end
+  15.times do |i|
+    Like.create(post: sample_post, user: users[i])
+    random_post_reset!
+    rand(30).times do
+      Like.create(post: posts[random_post], user: users[i])
+    end
+  end
 end
