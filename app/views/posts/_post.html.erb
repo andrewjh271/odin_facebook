@@ -1,0 +1,29 @@
+<div class='post'>  
+  <div class='history'><%= post.history %></div>
+  <div class='body'><%= post.body %></div>
+  <div class='author'><%= post.author.name %></div>
+  <div class='post-links'>
+    <%= link_to 'Show', post %>
+    <% if current_user.id == post.author_id %>
+      <%= link_to 'Edit', edit_post_path(post) %>
+      <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+  </div>
+
+  <div class='like'>
+    <% like = post.likes.find { |like| like.user_id == current_user.id } %>
+    <% if like %>
+      <%= button_to like_path(like), method: :delete, class: 'like-link' do %>
+        <i class='fas fa-thumbs-up liked'></i>
+      <% end %>
+    <% else %>
+      <%= button_to likes_path, params: { like: { user_id: current_user, post_id: post } }, class: 'like-link' do %>
+        <i class='fas fa-thumbs-up'></i>
+      <% end %>
+    <% end %>
+    <%= post.likes.length %>
+  </div>
+
+  <div class='comment'></div>
+  
+</div>

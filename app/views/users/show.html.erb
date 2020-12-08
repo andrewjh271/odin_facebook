@@ -1,0 +1,5 @@
+<h3>Profile for <%= current_user.name %></h3>
+
+<% if current_user.id == @user.id %>
+  <%= link_to 'Edit Account', edit_user_registration_path, class: 'end-link' %>
+<% end %>
