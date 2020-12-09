@@ -48,37 +48,22 @@ class User < ApplicationRecord
     ->(user) { unscope(:where).where('friend_a_id = ? OR friend_b_id = ?', user.id, user.id) }
 
   def friends
-    # active_record_union gem makes #union possibile
-    join_statement1 = <<-SQL
+    join_statement = <<-SQL
       INNER JOIN friendships
-        ON friendships.friend_a_id = users.id
+        ON (friendships.friend_a_id = users.id OR friendships.friend_b_id = users.id)
         AND (friendships.friend_a_id = #{id} OR friendships.friend_b_id = #{id})
     SQL
-    join_statement2 = <<-SQL
-      INNER JOIN friendships
-        ON friendships.friend_b_id = users.id
-        AND (friendships.friend_a_id = #{id} OR friendships.friend_b_id = #{id})
-    SQL
-
-    User.joins(join_statement1)
-        .union(User.joins(join_statement2))
+    User.joins(join_statement)
         .where.not(id: id)
   end
 
   def friends_sql
     # SQL implentation, but returns array instead of ActiveRecord Relation
-    User.find_by_sql(<<-SQL)
+    User.find_by_sql(<<~SQL)
       SELECT users.*
       FROM users
       INNER JOIN friendships
-        ON friendships.friend_a_id = users.id
-        AND (friendships.friend_a_id = #{id} OR friendships.friend_b_id = #{id})
-      WHERE users.id <> #{id}
-      UNION
-      SELECT users.*
-      FROM users
-      INNER JOIN friendships
-        ON friendships.friend_b_id = users.id
+        ON (friendships.friend_a_id = users.id OR friendships.friend_b_id = users.id)
         AND (friendships.friend_a_id = #{id} OR friendships.friend_b_id = #{id})
       WHERE users.id <> #{id};
     SQL
