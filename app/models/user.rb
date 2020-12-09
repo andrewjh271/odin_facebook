@@ -31,18 +31,37 @@ class User < ApplicationRecord
     foreign_key: :requester,
     dependent: :destroy
 
+  has_many :requested_friends,
+    through: :friend_requests,
+    source: :recipient
+
   has_many :friend_invitations,
     foreign_key: :recipient,
     class_name: :FriendRequest,
     dependent: :destroy
+
+  has_many :requesting_friends,
+    through: :friend_invitations,
+    source: :requester
 
   has_many :friendships,
     ->(user) { unscope(:where).where('friend_a_id = ? OR friend_b_id = ?', user.id, user.id) }
 
   def friends
     # active_record_union gem makes #union possibile
-    User.joins('INNER JOIN friendships ON friendships.friend_a_id = users.id')
-        .union(User.joins('INNER JOIN friendships ON friendships.friend_b_id = users.id'))
+    join_statement1 = <<-SQL
+      INNER JOIN friendships
+        ON friendships.friend_a_id = users.id
+        AND (friendships.friend_a_id = #{id} OR friendships.friend_b_id = #{id})
+    SQL
+    join_statement2 = <<-SQL
+      INNER JOIN friendships
+        ON friendships.friend_b_id = users.id
+        AND (friendships.friend_a_id = #{id} OR friendships.friend_b_id = #{id})
+    SQL
+
+    User.joins(join_statement1)
+        .union(User.joins(join_statement2))
         .where.not(id: id)
   end
 
@@ -53,13 +72,15 @@ class User < ApplicationRecord
       FROM users
       INNER JOIN friendships
         ON friendships.friend_a_id = users.id
-        WHERE users.id <> #{id}
+        AND (friendships.friend_a_id = #{id} OR friendships.friend_b_id = #{id})
+      WHERE users.id <> #{id}
       UNION
       SELECT users.*
       FROM users
       INNER JOIN friendships
         ON friendships.friend_b_id = users.id
-        WHERE users.id <> #{id};
+        AND (friendships.friend_a_id = #{id} OR friendships.friend_b_id = #{id})
+      WHERE users.id <> #{id};
     SQL
   end
 end
