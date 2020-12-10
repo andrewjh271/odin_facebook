@@ -28,7 +28,7 @@ class User < ApplicationRecord
     dependent: :destroy
 
   has_many :friend_requests,
-    foreign_key: :requester,
+    foreign_key: :requester_id,
     dependent: :destroy
 
   has_many :requested_friends,
@@ -36,7 +36,7 @@ class User < ApplicationRecord
     source: :recipient
 
   has_many :friend_invitations,
-    foreign_key: :recipient,
+    foreign_key: :recipient_id,
     class_name: :FriendRequest,
     dependent: :destroy
 

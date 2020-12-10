@@ -10,7 +10,7 @@
 #
 class FriendRequest < ApplicationRecord
   validates :recipient_id, uniqueness: { scope: :requester_id }
-  validate :no_self_referential_friendships
+  validate :no_self_referential_friend_requests
   validate :request_in_one_direction_only
 
   belongs_to :requester, class_name: :User
@@ -18,9 +18,9 @@ class FriendRequest < ApplicationRecord
 
   private
 
-  def no_self_referential_friendships
+  def no_self_referential_friend_requests
     if requester_id == recipient_id
-      errors[:recipient_id] << 'No self referential friendships allowed'
+      errors[:recipient_id] << 'No self referential friend requests allowed'
     end
   end
 

@@ -10,7 +10,7 @@
 #
 FactoryBot.define do
   factory :friendship do
-    friend_a { nil }
-    friend_b { nil }
+    friend_a { create(:user) }
+    friend_b { create(:user) }
   end
 end

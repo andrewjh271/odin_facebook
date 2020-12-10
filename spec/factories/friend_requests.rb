@@ -10,7 +10,7 @@
 #
 FactoryBot.define do
   factory :friend_request do
-    requester { nil }
-    recipient { nil }
+    requester { create(:user) }
+    recipient { create(:user) }
   end
 end
