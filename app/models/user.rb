@@ -68,4 +68,18 @@ class User < ApplicationRecord
       WHERE users.id <> #{id};
     SQL
   end
+
+  def no_contacts
+    join_statement = <<-SQL
+      LEFT OUTER JOIN friendships
+        ON (friendships.friend_a_id = users.id OR friendships.friend_b_id = users.id)
+        AND (friendships.friend_a_id = #{id} OR friendships.friend_b_id = #{id})
+      LEFT OUTER JOIN friend_requests
+        ON (friend_requests.requester_id = users.id OR friend_requests.recipient_id = users.id)
+        AND (friend_requests.requester_id = #{id} OR friend_requests.recipient_id = #{id})
+      SQL
+    
+    User.joins(join_statement)
+        .where( friendships: { id: nil }, friend_requests: { id: nil} )
+  end
 end
