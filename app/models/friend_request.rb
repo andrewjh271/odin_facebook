@@ -26,7 +26,7 @@ class FriendRequest < ApplicationRecord
 
   def request_in_one_direction_only
     if FriendRequest.exists?(requester_id: recipient_id, recipient_id: requester_id)
-      errors[:recipient_id] << 'User must respond to pending request for this friend'
+      errors[:recipient_id] << 'There is a pending request from this user'
     end
   end
 end
