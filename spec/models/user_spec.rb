@@ -61,6 +61,17 @@ RSpec.describe User, type: :model do
         end
       end
 
+      describe '#non_friends_and_pending' do
+        it 'should return users who are not friends or have been sent pending friend requests' do
+          Friendship.create!(friend_a: user, friend_b: user1)
+          Friendship.create!(friend_a: user2, friend_b: user)
+          FriendRequest.create!(recipient: user3, requester: user)
+          FriendRequest.create!(recipient: user, requester: user4)
+          user5 = FactoryBot.create(:user)
+          expect(user.non_friends_and_pending).to eq([user3, user5])
+        end
+      end
+
       describe '#no_contacts' do
         it 'should return all users who are not a friend or part of a pending friend request' do
           Friendship.create!(friend_a: user, friend_b: user1)

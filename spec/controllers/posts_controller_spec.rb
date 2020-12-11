@@ -71,6 +71,15 @@ RSpec.describe PostsController, type: :controller do
       get :edit, params: {id: post.to_param}
       expect(response).to be_successful
     end
+
+    context "without authorization" do
+      it 'redirects to root if user is not authorized' do
+        post = FactoryBot.create(:post)
+        get :edit, params: {id: post.to_param}
+        expect(response).to redirect_to(root_url)
+        expect(flash[:alert]).to eq('You are not authorized to edit this post!')
+      end
+    end
   end
 
   describe "POST #create" do
@@ -122,6 +131,15 @@ RSpec.describe PostsController, type: :controller do
         expect(response).to be_successful
       end
     end
+
+    context "without authorization" do
+      it 'redirects to root if user is not authorized' do
+        post = FactoryBot.create(:post)
+        put :update, params: {id: post.to_param, post: valid_attributes}
+        expect(response).to redirect_to(root_url)
+        expect(flash[:alert]).to eq('You are not authorized to edit this post!')
+      end
+    end
   end
 
   describe "DELETE #destroy" do
@@ -136,6 +154,15 @@ RSpec.describe PostsController, type: :controller do
       post = Post.create! valid_attributes
       delete :destroy, params: {id: post.to_param}
       expect(response).to redirect_to(posts_url)
+    end
+
+    context "without authorization" do
+      it 'redirects to root if user is not authorized' do
+        post = FactoryBot.create(:post)
+        delete :destroy, params: {id: post.to_param}
+        expect(response).to redirect_to(root_url)
+        expect(flash[:alert]).to eq('You are not authorized to edit this post!')
+      end
     end
   end
 

@@ -69,6 +69,20 @@ class User < ApplicationRecord
     SQL
   end
 
+  def non_friends_and_pending
+    join_statement = <<-SQL
+      LEFT OUTER JOIN friendships
+        ON (friendships.friend_a_id = users.id OR friendships.friend_b_id = users.id)
+        AND (friendships.friend_a_id = #{id} OR friendships.friend_b_id = #{id})
+      LEFT OUTER JOIN friend_requests
+        ON friend_requests.requester_id = users.id
+        AND friend_requests.recipient_id = #{id}
+      SQL
+    
+    User.joins(join_statement)
+        .where( friendships: { id: nil }, friend_requests: { id: nil} )
+  end
+
   def no_contacts
     join_statement = <<-SQL
       LEFT OUTER JOIN friendships

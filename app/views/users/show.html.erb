@@ -1,5 +1,40 @@
-<h3>Profile for <%= current_user.name %></h3>
+<h3>Profile for <%= @user.name %></h3>
 
-<% if current_user.id == @user.id %>
+Friends:
+<ul>
+  <% @user.friends.each do |friend| %>
+    <li><%= link_to friend.name, user_path(friend) %></li>
+  <% end %>
+</ul>
+
+
+<% if @user == current_user %>
+
+  Friend Requests:
+  <ul>
+    <% @user.friend_invitations.includes(:requester).each do |invitation| %>
+      <li>
+        <%= link_to invitation.requester.name, user_path(invitation.requester) %>
+        <%= link_to 'Accept', confirm_friend_request_path(invitation), method: :post %>
+        <%= link_to 'Delete', delete_friend_request_path(invitation), method: :delete %>
+      </li>
+    <% end %>
+  </ul>
+
+  Find Friends:
+  <ul>
+    <% @user.non_friends_and_pending.each do |friend| %>
+      <li>
+        <% pending_requests = @user.requested_friends.pluck(:id) %>
+        <%= link_to friend.name, user_path(friend) %>
+        <% if !!pending_requests.delete(friend.id) %>
+          Friend Request Sent
+        <% else %>
+          <%= button_to 'Add Friend', friend_requests_path, method: :post, params: { recipient_id: friend.id } %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
   <%= link_to 'Edit Account', edit_user_registration_path, class: 'end-link' %>
 <% end %>
