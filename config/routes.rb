@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   root 'posts#index'
   
   devise_for :users
-  resource :user, only: :show, as: :profile
+  # resource :user, only: :show, as: :profile
+  get 'profile', to: 'users#show', as: :profile
   resources :users, only: :show
 
   resources :posts

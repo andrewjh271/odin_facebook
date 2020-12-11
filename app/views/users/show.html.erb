@@ -1,5 +1,7 @@
 <h3>Profile for <%= @user.name %></h3>
 
+<%= render @user.posts %>
+
 Friends:
 <ul>
   <% @user.friends.each do |friend| %>
