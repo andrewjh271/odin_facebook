@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
+    @post = Post.new
     @posts = Post.all.order(created_at: :desc)
   end
 
@@ -33,7 +34,10 @@ class PostsController < ApplicationController
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
-        format.html { render :new }
+        format.html do
+          flash.now[:alert] = "Error: #{@post.errors.full_messages.join}"
+          render :new
+        end
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
@@ -47,7 +51,10 @@ class PostsController < ApplicationController
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
-        format.html { render :edit }
+        format.html do
+          flash.now[:alert] = "Error: #{@post.errors.full_messages.join}"
+          render :edit
+        end
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end

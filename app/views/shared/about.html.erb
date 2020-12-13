@@ -1,7 +1,12 @@
-<div class='page-body'>
+<% content_for :stylesheets do %>
+    #profile_sidebar {display: none;}
+    #friends_sidebar {display: none;}
+    .page-body { grid-template-columns: 1fr 10fr 1fr; }
+<% end %>
+
+
   <p>Created by Andrew Hayhurst as part of the Odin Project <%=
     link_to 'curriculum', 'https://www.theodinproject.com/courses/ruby-on-rails/lessons/final-project'
     %>. View on <%=
     link_to 'Github', 'https://github.com/andrewjh271/odin_facebook' %>.</p>
   <p>For full functionality sign up or login with <i>odin@example.com</i> and <i>password</i>.</p>
-</div>

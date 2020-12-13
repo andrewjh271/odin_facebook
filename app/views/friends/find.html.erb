@@ -1,0 +1,14 @@
+Find Friends:
+<ul>
+  <% current_user.non_friends_and_pending.each do |friend| %>
+    <li>
+      <% pending_requests = current_user.requested_friends.pluck(:id) %>
+      <%= link_to friend.name, user_path(friend) %>
+      <% if !!pending_requests.delete(friend.id) %>
+        Friend Request Sent
+      <% else %>
+        <%= button_to 'Add Friend', friend_requests_path, method: :post, params: { recipient_id: friend.id } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

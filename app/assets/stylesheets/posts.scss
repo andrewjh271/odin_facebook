@@ -4,12 +4,13 @@
 
 $subtle-border: 1px solid rgba(0, 0, 0, 0.151);
 $blue-text: #4267b2;
+$booking-blue: #385898;
 
 .post {
-  width: 50%;
+  // width: 50%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 2vh;
+  // margin-top: 2vh;
   padding: 8px;
   box-sizing: border-box;
   border-radius: 6px;
@@ -105,4 +106,44 @@ $blue-text: #4267b2;
   grid-row: 5 / 6;
   border-top: $subtle-border;
   box-sizing: border-box;
+}
+
+// new post
+
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+  background-color: #d0e2e8;
+  box-shadow: 0 0 7px 1px #00000029;
+}
+
+#new-post-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#new-post {
+  width: 21%;
+  padding: 5px;
+  border: none;
+  background-color: #58a1e0;
+  font-size: 17px;
+  color: white;
+  border-radius: 5px;
+}
+
+#new-post:hover {
+  cursor: pointer;
+  background-color: $booking-blue;
+  // color: grey;
+  transition: 300ms;
+}
+
+#new-post:focus {
+  outline: none;
 }

@@ -1,6 +1,6 @@
 <h3>Profile for <%= @user.name %></h3>
 
-<%= render @user.posts %>
+<%= render @user.posts.order(created_at: :desc) %>
 
 Friends:
 <ul>

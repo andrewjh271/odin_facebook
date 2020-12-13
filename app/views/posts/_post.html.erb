@@ -1,9 +1,12 @@
+<% show_link = true if show_link.nil? %>
+<% comments ||= false %>
+
 <div id=<%= post.id %> class='post'>  
   <div class='history'><%= post.history %></div>
   <div class='body'><%= post.body %></div>
-  <div class='author'><%= post.author.name %></div>
+  <div class='author'><%= link_to post.author.name, user_url(post.author) %></div>
   <div class='post-links'>
-    <%= link_to 'Show', post %>
+    <%= link_to 'Show', post if show_link %>
     <% if current_user.id == post.author_id %>
       <%= link_to 'Edit', edit_post_path(post) %>
       <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %>

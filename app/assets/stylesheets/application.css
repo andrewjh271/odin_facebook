@@ -25,6 +25,8 @@
 
 header {
   display: flex;
+  padding-left: 3vw;
+  padding-right: 3vw;
   justify-content: space-between;
   height: 7vh;
   background-color: #7190af6b;
@@ -33,6 +35,10 @@ header {
 }
 
 .header-left {
+  display: flex;
+}
+
+.header-right {
   display: flex;
 }
 
@@ -72,6 +78,18 @@ header {
   border-left: 1px solid rgba(0, 0, 0, 0.171);
 }
 
+.notifications {
+  color: #4a5692;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-weight: 400;
+}
+
+#flag {
+  top: 1px;
+  font-size: 15px;
+  position: relative;
+}
+
 /* flash */
 
 .flash-container {
@@ -109,11 +127,19 @@ a:visited {
 /* container for pages other than root */
 
 .page-body {
+  margin-top: 2vh;
   min-height: 92vh;
-  padding: 1vh 5vw 2vw 5vw;
+  padding: 1vh 3vw 2vw 3vw;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
+  display: grid;
+  grid-template-columns: 1fr 2.5fr 1fr;
+  grid-column-gap: 3vh;
+}
+
+#main {
+  grid-column: 2 / 3;
 }
 
 /* submit, create, edit, cancel, etc. */

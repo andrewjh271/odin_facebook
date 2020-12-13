@@ -1,5 +1,3 @@
-<%= render 'form', post: @post, autofocus: false %>
-
 <div class='posts'>
   <% @posts.includes(:likes, :author).each do |post| %>
     <%= render post %>

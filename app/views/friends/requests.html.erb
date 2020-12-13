@@ -1,0 +1,10 @@
+Friend Requests:
+<ul>
+  <% current_user.friend_invitations.includes(:requester).each do |invitation| %>
+    <li>
+      <%= link_to invitation.requester.name, user_path(invitation.requester) %>
+      <%= link_to 'Accept', confirm_friend_request_path(invitation), method: :post %>
+      <%= link_to 'Delete', delete_friend_request_path(invitation), method: :delete %>
+    </li>
+  <% end %>
+</ul>

@@ -1,27 +1,13 @@
 <%= form_with(model: post, local: true) do |form| %>
-  <% if post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-      <ul>
-        <% post.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :body %>
-    <%= form.text_area :body %>
-  </div>
 
-  <div class="field">
-    <%= form.label :author_id %>
-    <%= form.text_field :author_id %>
-  </div>
+  <%= form.text_area :body, rows: '6', placeholder: "What's on your mind?", autofocus: autofocus %>
 
-  <div class="actions">
-    <%= form.submit %>
+
+
+  <div id="new-post-wrapper">
+    <%= form.submit 'Post', id: 'new-post' %>
   </div>
 <% end %>
+<br>
