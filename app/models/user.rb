@@ -27,6 +27,10 @@ class User < ApplicationRecord
   has_many :likes,
     dependent: :destroy
 
+  has_many :comments,
+    foreign_key: :author_id,
+    dependent: :destroy
+
   has_many :friend_requests,
     foreign_key: :requester_id,
     dependent: :destroy
