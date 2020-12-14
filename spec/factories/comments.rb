@@ -13,7 +13,7 @@
 FactoryBot.define do
   factory :comment do
     body { "MyText" }
-    author { nil }
-    commentable { nil }
+    author { create(:user) }
+    commentable { create(:post) }
   end
 end

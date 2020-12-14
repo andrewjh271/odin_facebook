@@ -2,15 +2,16 @@
 #
 # Table name: likes
 #
-#  id         :bigint           not null, primary key
-#  user_id    :bigint           not null
-#  post_id    :bigint           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :bigint           not null, primary key
+#  user_id      :bigint           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  likable_type :string           not null
+#  likable_id   :bigint           not null
 #
 class Like < ApplicationRecord
   belongs_to :user
-  belongs_to :post
+  belongs_to :likable, polymorphic: true
 
-  validates :post_id, uniqueness: { scope: :user_id }
+  validates :user_id, uniqueness: { scope: [:likable_type, :likable_id] }
 end

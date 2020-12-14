@@ -15,6 +15,7 @@ class Post < ApplicationRecord
     class_name: :User
 
   has_many :likes,
+    as: :likable,
     dependent: :destroy
 
   has_many :comments,
@@ -31,5 +32,9 @@ class Post < ApplicationRecord
         created_at.strftime('%b %-d %Y')
       end
     created_at == updated_at ? history : (history + '<i> (edited)</i>').html_safe
+  end
+
+  def total_comments
+    comments.includes(:comments).to_a.sum { |comment| 1 + comment.comments.count }
   end
 end

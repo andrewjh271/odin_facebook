@@ -17,5 +17,9 @@ class Comment < ApplicationRecord
     as: :commentable,
     dependent: :destroy
 
+  has_many :likes,
+    as: :likable,
+    dependent: :destroy
+
   validates :body, presence: true
 end
