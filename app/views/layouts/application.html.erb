@@ -59,11 +59,11 @@
     <% end %>
     <div class='page-body'>
       <style> <%= yield :stylesheets %> </style>
-      <%= render 'layouts/profile_sidebar' %>
+      <%= render 'layouts/profile_sidebar' if user_signed_in? %>
       <div id='main'>
         <%= yield %>
       </div>
-      <%= render 'layouts/friends_sidebar' %>
+      <%= render 'layouts/friends_sidebar' if user_signed_in? %>
     </div>
 
     <script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"></script>

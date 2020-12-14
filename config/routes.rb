@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'posts#index'
   
   devise_for :users
-  # resource :user, only: :show, as: :profile
+  resource :user, only: :show, as: :profile
   # get 'profile', to: 'users#show', as: :profile
   # scope '/profile' do
   #   get 'posts', to: 'users#posts', as: :profile_posts
@@ -13,27 +13,43 @@ Rails.application.routes.draw do
   #   get 'find_friends', to: 'users#find_friends', as: :profile_find_friends
   # end
 
-  resource :profile, only: [] do
+  # resource :profile, only: [] do
+  #   get 'posts'
+  #   get 'photos'
+  #   get 'friends'
+  #   # get 'requests'
+  #   # get 'find_friends'
+
+  #     scope '/friends' do
+  
+  #       get 'requests'
+  #       get 'find'
+  #     end
+
+  #   get 'likes'
+  # end
+
+  # resources :friends, only: :index do
+  #   collection do
+
+  #     get 'requests'
+  #     get 'find'
+  #   end
+  # end
+
+  resources :users, only: :show do
     get 'posts'
     get 'photos'
-    # get 'friends'
-    # get 'requests'
-    # get 'find_friends'
+    get 'friends'
     get 'likes'
   end
 
-  resources :friends, only: :index do
-    collection do
-
-      get 'requests'
-      get 'find'
-    end
+  get '/friends', to: 'users#friends', as: :friends
+  scope '/friends', as: :friends do
+    get 'find', to: 'users#find_friends'
+    get 'requests', to: 'users#friend_requests'
   end
 
-  resources :users, only: :show do
-    get 'photos'
-    get 'friends'
-  end
 
   resources :posts
   resources :likes, only: [:create, :destroy]

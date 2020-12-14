@@ -1,7 +1,7 @@
 <div id='profile_sidebar'>
   <h3><%= current_user.name %></h3>
   <div class='profile-row'>
-    <%= link_to requests_friends_path do %>
+    <%= link_to friends_requests_path do %>
       <% notifications = current_user.friend_invitations.count %>
       <ion-icon name="flag" id='flag'></ion-icon>
       <span>Friend Requests<%= " (#{notifications})" if notifications > 0 %></span>
@@ -14,25 +14,25 @@
     <% end %>
   </div>
   <div class='profile-row'>
-    <%= link_to find_friends_path do %>
+    <%= link_to friends_find_path do %>
       <ion-icon name="telescope-outline"></ion-icon>
       <span>Find Friends</span>
     <% end %>
   </div>
   <div class='profile-row'>
-    <%= link_to posts_profile_path do %>
+    <%= link_to user_posts_path(current_user) do %>
       <ion-icon name="documents-outline"></ion-icon>
       <span>My Posts</span>
     <% end %>
   </div>
   <div class='profile-row'>
-    <%= link_to photos_profile_path do %>
+    <%= link_to user_photos_path(current_user) do %>
       <ion-icon name="images-outline"></ion-icon>
       <span>My Photos</span>
     <% end %>
   </div>
   <div class='profile-row'>
-    <%= link_to likes_profile_path do %>
+    <%= link_to user_likes_path(current_user) do %>
       <ion-icon name="heart-outline"></ion-icon>
       <span>Liked Posts</span>
     <% end %>
