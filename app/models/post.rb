@@ -35,6 +35,6 @@ class Post < ApplicationRecord
   end
 
   def total_comments
-    comments.includes(:comments).to_a.sum { |comment| 1 + comment.comments.count }
+    comments.to_a.sum { |comment| 1 + comment.comments.length }
   end
 end

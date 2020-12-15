@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :index
+  before_action :custom_authenticate_user!, only: :index
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :require_author!, except: [:index, :show, :new, :create]
 
@@ -7,7 +8,7 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @post = Post.new
-    @posts = Post.all.order(created_at: :desc)
+    @posts = Post.all.includes(:likes, comments: [:comments]).order(created_at: :desc)
   end
 
   # GET /posts/1
@@ -85,6 +86,14 @@ class PostsController < ApplicationController
       unless current_user.id == @post.author_id
         flash[:alert] = 'You are not authorized to edit this post!'
         redirect_to root_url
+      end
+    end
+
+    def custom_authenticate_user!
+      # avoids setting flash message for root url
+      unless user_signed_in?
+        flash.alert = 'You need to sign in or sign up before continuing.' unless request.env['PATH_INFO'] == '/'
+        redirect_to new_user_session_path
       end
     end
 end
