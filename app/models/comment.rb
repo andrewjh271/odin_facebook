@@ -35,7 +35,9 @@ class Comment < ApplicationRecord
   end
 
   def get_post_or_photo_id
-    unnested_commentable_id
+    parent = commentable
+    parent = parent.commentable while parent.class == Comment
+    parent.id
   end
   
   def unnested_commentable_id

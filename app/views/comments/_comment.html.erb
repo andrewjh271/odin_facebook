@@ -2,7 +2,8 @@
 
 <div id='comment-<%= comment.id %>' class='comment'>
   <div class='comment-profile-picture'></div>
-  <div class='comment-main <%= 'compose-comment' if edit %>'>
+  <div class='comment-wrapper'>
+    <div class='comment-main <%= 'edit-comment' if edit == comment.id %>'>
     <div class='comment-bubble'>
       <div class='comment-author'>
         <strong><%= comment.author.name %></strong>
@@ -35,12 +36,16 @@
         <%= comment.likes.length %>
       </div>
     </div>
+    </div>
       <% unless reply %>
         <div class='replies'>
           <% parent_comment = false %>
           <% comment.comments.order(:created_at).each do |comment| %>
               <% if comment.author == current_user && edit == comment.id %>
-                <%= render 'comments/form', comment: comment, submit: 'Update', autofocus: true %>
+                <div class='comment-reply'>
+                  <div class='comment-profile-picture'></div>
+                  <%= render 'comments/form', comment: comment, submit: 'Update', autofocus: true %>
+                </div>
               <% else %>
                 <%= render comment, comment: comment, edit: false, reply_to: reply_to %>
               <% end %>
@@ -49,7 +54,7 @@
           <% if parent_comment %>
               <div class='comment-reply'>
                 <div class='comment-profile-picture'></div>
-                <div class='reply-form'><%= render 'comments/form', comment: parent_comment.comments.build, submit: 'Reply', autofocus: true, nested: true %></div>
+                <div class='nested-reply-form'><%= render 'comments/form', comment: parent_comment.comments.build, submit: 'Reply', autofocus: true, nested: true %></div>
               </div>
           <% end %>
         </div>

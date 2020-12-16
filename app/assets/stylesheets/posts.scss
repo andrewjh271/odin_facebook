@@ -137,13 +137,17 @@ $booking-blue: #385898;
  margin-bottom: 1vh;
 }
 
+.comment-wrapper {
+  width: 87%;
+}
+
 .comment-main {
-  max-width: 87%;
-  min-width: 40%;
+  width: fit-content;
+  min-width: 44%;
 }
 
 .comment-bubble {
-  background-color: lightgray;
+  background-color: #d3d3d35e;
   border-radius: 25px;
   padding: 10px;
 }
@@ -167,7 +171,7 @@ $booking-blue: #385898;
   border-radius: 50%;
 }
 
-.compose-comment {
+.edit-comment {
   width: 100%;
 }
 
@@ -195,8 +199,8 @@ $booking-blue: #385898;
 }
 
 .submit-comment {
-  width: 15%;
-  padding: 3px;
+  width: fit-content;
+  padding: 4px 6px 4px 6px;
   border: none;
   background-color: #58a1e0;
   font-size: 14px;
@@ -237,8 +241,16 @@ $booking-blue: #385898;
   width: 87%;
 }
 
+.nested-reply-form {
+  width: 100%;
+}
+
 .nest-reply {
   margin-left: 3vw;
+}
+
+.comment-reply form {
+  width: 100%;
 }
 
 // border below body and above like count / like button
