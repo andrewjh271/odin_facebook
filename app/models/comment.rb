@@ -11,6 +11,8 @@
 #  updated_at       :datetime         not null
 #
 class Comment < ApplicationRecord
+  include ActionView::Helpers::DateHelper
+
   belongs_to :author, class_name: :User
   belongs_to :commentable, polymorphic: true
   has_many :comments,
@@ -22,4 +24,33 @@ class Comment < ApplicationRecord
     dependent: :destroy
 
   validates :body, presence: true
+
+  def history
+    # if (Time.now - created_at) / 60 / 60 / 24 < 200
+    #   created_at.strftime("%b %-d")
+    # else
+    #   created_at.strftime("%b '%y")
+    # end
+    created_at.strftime("%b %-d '%y")
+  end
+
+  def get_post_or_photo_id
+    unnested_commentable_id
+  end
+  
+  def unnested_commentable_id
+    if commentable.class == Comment
+      commentable.commentable_id
+    else
+      commentable_id
+    end
+  end
+
+  def get_placeholder
+    if commentable.class == Comment
+      "Reply to #{commentable.author.name}..."
+    else
+      'Write a comment...'
+    end
+  end
 end

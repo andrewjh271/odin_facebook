@@ -1,12 +1,13 @@
-<% show_link = true if show_link.nil? %>
-<% comments ||= false %>
+<% show_page ||= false %>
+<% edit ||= false %>
+<% autofocus ||= false %>
 
-<div id=<%= post.id %> class='post'>  
+<div id='post-<%= post.id %>' class='post'>  
   <div class='history'><%= post.history %></div>
   <div class='body'><%= post.body %></div>
   <div class='author'><%= link_to post.author.name, user_url(post.author) %></div>
   <div class='post-links'>
-    <%= link_to 'Show', post if show_link %>
+    <%= link_to 'Show', post unless show_page %>
     <% if current_user.id == post.author_id %>
       <%= link_to 'Edit', edit_post_path(post) %>
       <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %>
@@ -20,13 +21,38 @@
         <i class='fas fa-thumbs-up liked'></i>
       <% end %>
     <% else %>
-      <%= button_to likes_path, params: { like: { user_id: current_user, post_id: post } }, class: 'like-link' do %>
+      <%= button_to likes_path, params: { like: { user_id: current_user, likable_id: post.id, likable_type: 'Post' } }, class: 'like-link' do %>
         <i class='fas fa-thumbs-up'></i>
       <% end %>
     <% end %>
     <%= post.likes.length %>
   </div>
 
-  <div class='comment'></div>
-  
+  <div class='comment-icon'>
+    <%= link_to 'Comment', new_post_comment_path(post) %>
+    <%= link_to post, class: 'comment-link' do %>
+      <ion-icon name="chatbubbles-outline" class='comments-icon'></ion-icon>
+      <span class='comments-count'><%= post.total_comments %></span>
+    <% end %>
+  </div>
+
+  <% if show_page && post.comments.count > 0 %>
+    <div class='comments'>
+      <% post.comments.order(:created_at).includes(:comments).each do |comment| %>
+        <%= render comment, comment: comment, edit: edit, reply_to: reply_to %>
+        <% if reply_to == comment.id %>
+          <div class='comment-reply nest-reply'>
+            <div class='comment-profile-picture'></div>
+            <div class='reply-form'><%= render 'comments/form', comment: comment.comments.build, submit: 'Reply', autofocus: true %></div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <% if show_page %>
+    <div class='new-comment'>
+      <div class='comment-profile-picture'></div>
+      <div class='new-comment-form'><%= render 'comments/form', comment: post.comments.build, submit: 'Comment', autofocus: autofocus %></div>
+    </div>
+  <% end %>
 </div>

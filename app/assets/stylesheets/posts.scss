@@ -50,7 +50,7 @@ $booking-blue: #385898;
   font-weight: bold;
 }
 
-.comment {
+.comment-icon {
   display: flex;
   justify-content: flex-end;
   height: 100%;
@@ -96,6 +96,149 @@ $booking-blue: #385898;
 
 .like-link:focus {
   outline: none;
+}
+
+.comments-icon {
+  margin-left: 5px;
+  font-size: 17px;
+}
+
+.comments-count {
+  position: relative;
+  bottom: 3px;
+}
+
+.comment-link:hover {
+  text-decoration: none;
+  color: gray;
+}
+
+// comments
+
+.comments {
+  grid-column: 1 / 4;
+  grid-row: 5 / 6;
+  padding: 8px 0 8px 0;
+  border-top: 1px solid #00000027;
+  margin-top: 1vh;
+}
+
+.new-comment {
+  grid-column: 1 / 4;
+  grid-row: 6 / 7;
+  display: flex;
+  padding: 8px 0 8px 0;
+  border-top: 1px solid #00000027;
+  margin-top: 1vh;
+}
+
+.comment {
+ display: flex;
+ margin-bottom: 1vh;
+}
+
+.comment-main {
+  max-width: 87%;
+  min-width: 40%;
+}
+
+.comment-bubble {
+  background-color: lightgray;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+.comment-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-author {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-profile-picture {
+  box-sizing: border-box;
+  height: 2vw;
+  width: 2vw;
+  margin-right: 1vw;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.compose-comment {
+  width: 100%;
+}
+
+.new-comment-form {
+  width: 87%
+}
+
+.comment-form {
+  width: 100%;
+}
+
+.comment-form textarea {
+  background: #2529e812;
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.comment-form textarea:focus {
+  background: #d9eff76e;
+}
+
+.comment-controls {
+  display: flex;
+}
+
+.submit-comment {
+  width: 15%;
+  padding: 3px;
+  border: none;
+  background-color: #58a1e0;
+  font-size: 14px;
+  color: white;
+  border-radius: 5px;
+}
+
+.submit-comment:hover {
+  cursor: pointer;
+  background-color: $booking-blue;
+  transition: 300ms;
+}
+
+.submit-comment:focus {
+  outline: none;
+}
+
+.cancel-edit {
+  text-align: center;
+  margin-right: 5px;
+  background-color: #b469c7;
+}
+
+.cancel-edit:hover {
+  text-decoration: none;
+  background-color: #70457b;
+}
+
+.replies {
+  margin-top: 1vw;
+}
+
+.comment-reply {
+  display: flex;
+}
+
+.reply-form {
+  width: 87%;
+}
+
+.nest-reply {
+  margin-left: 3vw;
 }
 
 // border below body and above like count / like button

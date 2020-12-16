@@ -5,37 +5,6 @@ Rails.application.routes.draw do
   
   devise_for :users
   resource :user, only: :show, as: :profile
-  # get 'profile', to: 'users#show', as: :profile
-  # scope '/profile' do
-  #   get 'posts', to: 'users#posts', as: :profile_posts
-  #   get 'friends', to: 'users#friends', as: :profile_friends
-  #   get 'requests', to: 'users#requests', as: :profile_requests
-  #   get 'find_friends', to: 'users#find_friends', as: :profile_find_friends
-  # end
-
-  # resource :profile, only: [] do
-  #   get 'posts'
-  #   get 'photos'
-  #   get 'friends'
-  #   # get 'requests'
-  #   # get 'find_friends'
-
-  #     scope '/friends' do
-  
-  #       get 'requests'
-  #       get 'find'
-  #     end
-
-  #   get 'likes'
-  # end
-
-  # resources :friends, only: :index do
-  #   collection do
-
-  #     get 'requests'
-  #     get 'find'
-  #   end
-  # end
 
   resources :users, only: :show do
     get 'posts'
@@ -50,12 +19,14 @@ Rails.application.routes.draw do
     get 'requests', to: 'users#friend_requests'
   end
 
+  resources :posts do
+    resources :comments, only: [:new, :edit]
+  end
+  resources :comments, only: [:create, :update, :destroy]
+  get 'posts/:comment_id/new', to: 'comments#new_reply', as: 'new_reply'
+  get 'posts/:comment_id/edit', to: 'comments#edit_reply', as: 'edit_reply'
 
-  resources :posts
   resources :likes, only: [:create, :destroy]
-  # get 'friends', to: 'friends#index'
-  # get 'requests', to: 'friends#requests'
-  # get 'find_friends', to: 'friends#find'
 
   resources :friend_requests, only: :create do
     member do
