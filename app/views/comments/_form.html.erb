@@ -8,9 +8,9 @@
     <% end %>
 
     <%= form.text_area :body, rows: '3', placeholder: comment.get_placeholder, autofocus: autofocus %>
-    <div id="new-post-wrapper">
-      <%= link_to 'Cancel', post_url(comment.get_post_or_photo_id), class: 'submit-comment cancel-edit' unless submit == 'Comment'%>
-      <%= form.submit submit, class: 'submit-comment' %>
+    <div class="submit-wrapper">
+      <%= link_to 'Cancel', post_url(comment.get_post_or_photo_id), class: 'comment-submit comment-cancel' unless submit == 'Comment'%>
+      <%= form.submit submit, class: 'comment-submit' %>
     </div>
   </div>
 <% end %>

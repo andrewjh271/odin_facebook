@@ -37,4 +37,9 @@ class Post < ApplicationRecord
   def total_comments
     comments.to_a.sum { |comment| 1 + comment.comments.length }
   end
+
+  def get_post_or_photo_id
+    # necessary in LikesController#referer_url_with_anchor for when likable is a comment
+    id
+  end
 end

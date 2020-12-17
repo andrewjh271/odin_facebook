@@ -2,7 +2,3 @@
 <% @autofocus ||= false %>
 <% @reply_to ||= false %>
 <%= render @post, show_page: true, comments: true, edit: @edit, reply_to: @reply_to, autofocus: @autofocus %>
-<br>
-<div>
-  <%= link_to 'Back', posts_path %>
-</div>

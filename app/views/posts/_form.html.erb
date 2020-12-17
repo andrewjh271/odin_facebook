@@ -1,13 +1,9 @@
 <%= form_with(model: post, local: true) do |form| %>
 
-
-
   <%= form.text_area :body, rows: '6', placeholder: "What's on your mind?", autofocus: autofocus %>
 
-
-
-  <div id="new-post-wrapper">
-    <%= form.submit 'Post', id: 'new-post' %>
+  <div class="submit-wrapper">
+    <%= form.submit 'Post', class: 'submit-post' %>
   </div>
 <% end %>
 <br>

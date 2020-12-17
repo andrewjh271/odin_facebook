@@ -3,42 +3,43 @@
 <div id='comment-<%= comment.id %>' class='comment'>
   <div class='comment-profile-picture'></div>
   <div class='comment-wrapper'>
-    <div class='comment-main <%= 'edit-comment' if edit == comment.id %>'>
+    <div class='comment-main <%= 'full-width' if edit == comment.id %>'>
     <div class='comment-bubble'>
-      <div class='comment-author'>
+      <div class='comment-header'>
         <strong><%= comment.author.name %></strong>
         <div>
           <%= link_to 'Edit |', edit_post_comment_path(comment.get_post_or_photo_id, comment) if comment.author == current_user && edit != comment.id %>
           <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: "Are you sure?" } if comment.author == current_user %>
         </div>
       </div>
-      <div class='comment-body'>
         <% if comment.author == current_user && edit == comment.id %>
           <%= render 'comments/form', comment: comment, submit: 'Update', autofocus: true %>
         <% else %>
           <%= comment.body %>
         <% end %>
-      </div>
     </div>
     <div class='comment-footer'>
       <div class='comment-controls'>
         <% like = comment.likes.find { |like| like.user_id == current_user.id } %>
-        <%= comment.history %> •
-        <%= link_to 'Reply', new_reply_path(comment.id) %>
+        <span><%= comment.history %></span>
+        <%= link_to 'Reply', new_reply_path(comment.id), class: 'comment-links' %>
         <% if like %>
-          <%= button_to ' Unlike', like_path(like), method: :delete, class: 'like-link'%>
+          <%= button_to 'Unlike', like_path(like), method: :delete, class: 'hidden-button comment-links'%>
         <% else %>
-          <%=  button_to ' Like', likes_path, params: { like: { user_id: current_user, likable_id: comment.id, likable_type: 'Comment' } }, class: 'like-link' %>
+          <%=  button_to 'Like', likes_path, params: { like: { user_id: current_user, likable_id: comment.id, likable_type: 'Comment' } }, class: 'hidden-button comment-links' %>
         <% end %>
       </div>
-      <div>
-        <i class='fas fa-thumbs-up liked'></i>
-        <%= comment.likes.length %>
-      </div>
+      <% comment_likes = comment.likes.length %>
+      <% if comment_likes > 0 %>
+        <div class='comment-like-container'>
+          <ion-icon class='comment-like' name="heart"></ion-icon><!--
+          --><span><%= comment.likes.length %></span>
+        </div>
+      <% end %>
     </div>
     </div>
       <% unless reply %>
-        <div class='replies'>
+        <div class='comment-replies'>
           <% parent_comment = false %>
           <% comment.comments.order(:created_at).each do |comment| %>
               <% if comment.author == current_user && edit == comment.id %>
@@ -54,7 +55,7 @@
           <% if parent_comment %>
               <div class='comment-reply'>
                 <div class='comment-profile-picture'></div>
-                <div class='nested-reply-form'><%= render 'comments/form', comment: parent_comment.comments.build, submit: 'Reply', autofocus: true, nested: true %></div>
+                <div class='full-width'><%= render 'comments/form', comment: parent_comment.comments.build, submit: 'Reply', autofocus: true, nested: true %></div>
               </div>
           <% end %>
         </div>
