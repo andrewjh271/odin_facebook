@@ -6,10 +6,9 @@ class CommentsController < ApplicationController
   end
 
   def create
-    # fail
     comment = current_user.comments.build(comment_params)
     flash.alert = "Error: #{comment.errors.full_messages.join}" unless comment.save
-    redirect_to post_url(comment.get_post_or_photo_id)
+    redirect_to post_url(comment.get_post_or_photo_id, anchor: "comment-#{comment.id}")
   end
 
   def edit
@@ -21,14 +20,13 @@ class CommentsController < ApplicationController
   def update
     comment = Comment.find(params[:id])
     flash.alert = "Error: #{comment.errors.full_messages.join}" unless comment.update(comment_params)
-    redirect_to post_url(comment.get_post_or_photo_id)
+    redirect_to post_url(comment.get_post_or_photo_id, anchor: "comment-#{comment.id}")
   end
 
   def new_reply
     @comment = Comment.find(params[:comment_id])
     @post = Post.find(@comment.get_post_or_photo_id)
     @reply_to = params[:comment_id].to_i
-    # fail
     render 'posts/show'
   end
 

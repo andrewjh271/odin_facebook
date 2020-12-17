@@ -24,7 +24,8 @@ class LikesController < ApplicationController
   def referer_url_with_anchor(likable)
     anchor = "#{likable.class.to_s.downcase}-#{likable.id}"
     case request.referer
-    when /posts\/\d/ then request.referer
+    when /posts\/\d/ then post_url(likable.get_post_or_photo_id, anchor: anchor)
+    when /posts/ then posts_url(anchor: anchor)
     # when /photos\/\d/ then post_url(likable.id)
     when /users\/\d+\/posts/ then user_posts_url(likable.author, anchor: anchor)
     # when /users\/\d+\/photos/ then user_photos_url(likable.something, anchor: anchor)
