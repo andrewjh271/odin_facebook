@@ -100,5 +100,6 @@ class User < ApplicationRecord
     
     User.joins(join_statement)
         .where( friendships: { id: nil }, friend_requests: { id: nil} )
+        .where.not(id: id)
   end
 end
