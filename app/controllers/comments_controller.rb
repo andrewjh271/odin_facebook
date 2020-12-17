@@ -30,10 +30,6 @@ class CommentsController < ApplicationController
     render 'posts/show'
   end
 
-  def edit_reply
-
-  end
-
   def destroy
     comment = Comment.find(params[:id])
     url = post_url(comment.get_post_or_photo_id)

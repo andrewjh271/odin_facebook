@@ -86,8 +86,14 @@ header {
 
 #flag {
   top: 1px;
-  font-size: 15px;
+  font-size: 18px;
   position: relative;
+}
+
+sup {
+  bottom: 5px;
+  position: relative;
+  font-size: 11px;
 }
 
 /* flash */

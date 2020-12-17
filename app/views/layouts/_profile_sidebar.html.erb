@@ -1,6 +1,12 @@
 <div id='profile_sidebar'>
   <h3><%= current_user.name %></h3>
   <div class='profile-row'>
+    <%= link_to posts_path do %>
+      <ion-icon name="newspaper-outline"></ion-icon>
+      <span>Timeline</span>
+    <% end %>
+  </div>
+  <div class='profile-row'>
     <%= link_to friends_requests_path do %>
       <% notifications = current_user.friend_invitations.count %>
       <ion-icon name="flag" id='flag'></ion-icon>

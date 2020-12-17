@@ -26,11 +26,13 @@
         </button><!--
         <% if user_signed_in? %>
           <% notifications = current_user.friend_invitations.count %>
-          <% if notifications > 0 %>
           --><button class='header-button border-right'>
-            <%= link_to requests_friends_path, class: 'header-item' do %>
+          <%= link_to friends_requests_path, class: 'header-item' do %>
+            <% if notifications > 0 %>
               <ion-icon name="flag" id='flag' class='notifications'></ion-icon><!--
               --><sup class='notifications'><%= notifications %></sup>
+            <% else %>
+              <ion-icon name="flag"></ion-icon>
             <% end %>
           <% end %>
           </button><!--
