@@ -32,11 +32,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def requests
-
+  def friend_requests
   end
 
   def find_friends
-    
   end
 end
