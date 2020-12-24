@@ -1,9 +1,17 @@
 <div id='profile_sidebar'>
-  <h3><%= current_user.name %></h3>
+  <%= image_tag url_for(current_user.avatar.variant(resize_to_fill: [200, 200, { gravity: 'Center' }])), class: 'sidebar-avatar' %>
+  <div class='sidebar-username'><%= current_user.name %></div>
+
   <div class='profile-row'>
     <%= link_to posts_path do %>
       <ion-icon name="newspaper-outline"></ion-icon>
       <span>Timeline</span>
+    <% end %>
+  </div>
+  <div class='profile-row'>
+    <%= link_to edit_profile_path do %>
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <span>Edit Profile</span>
     <% end %>
   </div>
   <div class='profile-row'>

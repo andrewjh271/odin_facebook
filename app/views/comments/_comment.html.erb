@@ -1,12 +1,17 @@
 <% reply = comment.commentable_type == 'Comment' %>
 
 <div id='comment-<%= comment.id %>' class='comment'>
-  <div class='comment-profile-picture'></div>
+  <% if comment.author.avatar.attached? %>
+    <%= image_tag url_for(comment.author.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'comment-avatar' %>
+  <% else %>
+    <div class='comment-profile-picture'></div>
+  <% end %>
+
   <div class='comment-wrapper'>
     <div class='comment-main <%= 'full-width' if edit == comment.id %>'>
     <div class='comment-bubble'>
       <div class='comment-header'>
-        <strong><%= comment.author.name %></strong>
+        <%= link_to comment.author.name, comment.author, class: 'author' %>
         <div>
           <%= link_to 'Edit |', edit_post_comment_path(comment.get_post_or_photo_id, comment) if comment.author == current_user && edit != comment.id %>
           <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: "Are you sure?" } if comment.author == current_user %>
@@ -44,7 +49,11 @@
           <% comment.comments.order(:created_at).each do |comment| %>
               <% if comment.author == current_user && edit == comment.id %>
                 <div class='comment-reply'>
-                  <div class='comment-profile-picture'></div>
+                  <% if comment.author.avatar.attached? %>
+                    <%= image_tag url_for(comment.author.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'comment-avatar' %>
+                  <% else %>
+                    <div class='comment-profile-picture'></div>
+                  <% end %>
                   <%= render 'comments/form', comment: comment, submit: 'Update', autofocus: true %>
                 </div>
               <% else %>
@@ -54,7 +63,11 @@
           <% end %>
           <% if parent_comment %>
               <div class='comment-reply'>
-                <div class='comment-profile-picture'></div>
+                <% if current_user.avatar.attached? %>
+                  <%= image_tag url_for(current_user.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'comment-avatar' %>
+                <% else %>
+                  <div class='comment-profile-picture'></div>
+                <% end %>
                 <div class='full-width'><%= render 'comments/form', comment: parent_comment.comments.build, submit: 'Reply', autofocus: true, nested: true %></div>
               </div>
           <% end %>

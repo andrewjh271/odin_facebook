@@ -37,4 +37,19 @@ class UsersController < ApplicationController
 
   def find_friends
   end
+
+  def edit_profile
+    @user = current_user
+  end
+
+  def update_profile
+    current_user.update(profile_params)
+    redirect_to root_url
+  end
+
+  private
+
+  def profile_params
+    params.require(:user).permit(:avatar)
+  end
 end

@@ -163,7 +163,7 @@ textarea:focus {
 .comments {
   grid-column: 1 / 4;
   grid-row: 5 / 6;
-  padding: 8px 0 8px 0;
+  padding: 8px 0 0 0;
   border-top: 1px solid #00000027;
   margin-top: 1vh;
 }
@@ -174,13 +174,11 @@ textarea:focus {
   display: flex;
   padding: 8px 0 8px 0;
   border-top: 1px solid #00000027;
-  margin-top: 1vh;
 }
 
 .new-comment-form {
   width: $comment-width
 }
-
 
 .comment {
  display: flex;
@@ -189,9 +187,10 @@ textarea:focus {
 
 .comment-profile-picture {
   box-sizing: border-box;
-  height: 2vw;
-  width: 2vw;
+  height: 3vw;
+  width: 3vw;
   margin-right: 1vw;
+  margin-top: 0.5vh;
   border: 1px solid black;
   border-radius: 50%;
 }
@@ -202,7 +201,7 @@ textarea:focus {
 
 .comment-main {
   width: fit-content;
-  min-width: 44%;
+  min-width: 40%;
 }
 
 .comment-bubble {
@@ -323,7 +322,7 @@ textarea:focus {
 }
 
 .nest-reply {
-  margin-left: 3vw;
+  margin-left: 4vw;
 }
 
 .comment-reply form {
@@ -332,4 +331,14 @@ textarea:focus {
 
 .full-width {
   width: 100%;
+}
+
+.comment-avatar {
+  object-fit: cover;
+  border-radius: 50%;
+  box-sizing: border-box;
+  height: 3vw;
+  width: 3vw;
+  margin-right: 1vw;
+  margin-top: 0.5vh;
 }

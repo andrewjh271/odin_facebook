@@ -15,6 +15,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  after_save :ensure_avatar
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -51,6 +53,8 @@ class User < ApplicationRecord
   has_many :friendships,
     ->(user) { unscope(:where).where('friend_a_id = ? OR friend_b_id = ?', user.id, user.id) },
     dependent: :destroy
+
+    has_one_attached :avatar
 
   def friends
     join_statement = <<-SQL
@@ -101,5 +105,19 @@ class User < ApplicationRecord
     User.joins(join_statement)
         .where( friendships: { id: nil }, friend_requests: { id: nil} )
         .where.not(id: id)
+  end
+
+  def set_avatar!
+    filename = "#{rand(11)}.png"
+    path = Rails.root.join("app/assets/images/Default Avatars", filename)
+    File.open(path) do |io|
+      avatar.attach(io: io, filename: filename)
+    end
+  end
+
+  private
+
+  def ensure_avatar
+    set_avatar! unless avatar.attached?
   end
 end

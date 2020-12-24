@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     get 'likes'
   end
 
+  get 'profile/edit', to: 'users#edit_profile', as: :edit_profile
+  patch 'profile/update', to: 'users#update_profile', as: :update_profile
+
   get '/friends', to: 'users#friends', as: :friends
   scope '/friends', as: :friends do
     get 'find', to: 'users#find_friends'
