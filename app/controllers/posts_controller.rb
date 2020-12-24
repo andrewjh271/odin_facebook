@@ -2,16 +2,16 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: :index
   before_action :custom_authenticate_user!, only: :index
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :require_friend!, only: :show
   before_action :require_author!, except: [:index, :show, :new, :create]
-
-  # todo: limit posts to current_user and current_user's friends for index and show
 
   # GET /posts
   # GET /posts.json
   def index
     @post = Post.new
-    @posts = Post.all.includes(:likes, comments: [:comments]).order(created_at: :desc)
+    timeline_author_ids = current_user.friends.pluck(:id) << current_user.id
+    @posts = Post.where('author_id IN (?)', timeline_author_ids)
+                 .includes(:likes, comments: [:comments])
+                 .order(created_at: :desc)
   end
 
   # GET /posts/1
@@ -98,9 +98,5 @@ class PostsController < ApplicationController
         flash.alert = 'You need to sign in or sign up before continuing.' unless request.env['PATH_INFO'] == '/'
         redirect_to new_user_session_path
       end
-    end
-
-    def require_friend!
-
     end
 end

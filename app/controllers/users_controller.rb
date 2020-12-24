@@ -26,13 +26,14 @@ class UsersController < ApplicationController
 
   def friends
     if params[:user_id]
-      @friends = User.find(params[:user_id]).friends
+      @friends = User.find(params[:user_id]).friends.order(:name)
     else
-      @friends = current_user.friends
+      @friends = current_user.friends.order(:name)
     end
   end
 
   def friend_requests
+    @invitations = current_user.friend_invitations.includes(:requester)
   end
 
   def find_friends

@@ -2,15 +2,33 @@
   <div id='friend-suggestions'>
     <h4>Friend Suggestions</h4>
     <% current_user.no_contacts.limit(3).order("RANDOM()").each do |friend| %>
-      <%= link_to friend.name, user_path(friend) %>
-      <%= button_to 'Add Friend', friend_requests_path, method: :post, params: { recipient_id: friend.id } %>
+      <div class='friend-full-row'>
+        <div class='friend-row'>
+          <% if friend.avatar.attached? %>
+            <%= image_tag url_for(friend.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'friend-list-avatar' %>
+          <% else %>
+            <div class='friend-list-blank-avatar'></div>
+          <% end %>
+          <%= link_to friend.name, user_path(friend) %>
+        </div>
+        <div>
+          <%= button_to friend_requests_path, method: :post, class: 'add-friend', params: { recipient_id: friend.id } do %>
+            <i class="fas fa-user-plus"></i>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   </div>
   <hr>
-  <div id='top-friends'>
-    <h4>Friends</h4>
-    <% current_user.friends.left_joins(:posts).group(:id).order('COUNT(posts.id) DESC').limit(20).each do |friend| %>
+  <h4>Friends</h4>
+  <% current_user.friends.left_joins(:posts).group(:id).order('COUNT(posts.id) DESC').limit(40).each do |friend| %>
+    <div class='friend-row'>
+      <% if friend.avatar.attached? %>
+        <%= image_tag url_for(friend.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'friend-list-avatar' %>
+      <% else %>
+        <div class='friend-list-blank-avatar'></div>
+      <% end %>
       <%= link_to friend.name, user_path(friend) %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

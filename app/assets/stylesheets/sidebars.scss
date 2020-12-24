@@ -1,11 +1,14 @@
 #profile_sidebar {
   grid-column: 1 / 2;
   border: 1px solid black;
+  padding-left: 1vw;
+  padding-top: 1vh;
 }
 
 #friends_sidebar {
   grid-column: 3 / 4;
   border: 1px solid black;
+  padding-left: 1vw;
 }
 
 .sidebar-avatar {

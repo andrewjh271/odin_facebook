@@ -1,14 +1,24 @@
-Find Friends:
-<ul>
-  <% current_user.non_friends_and_pending.each do |friend| %>
-    <li>
-      <% pending_requests = current_user.requested_friends.pluck(:id) %>
-      <%= link_to friend.name, user_path(friend) %>
+<h3>Find Friends:</h3>
+
+<div class='friends-container'>
+  <% pending_requests = current_user.requested_friends.pluck(:id) %>
+  <% current_user.non_friends_and_pending.order(:name).each do |friend| %>
+    <div class='friend-full-row'>
+      <div class='friend-row'>
+        <% if friend.avatar.attached? %>
+          <%= image_tag url_for(friend.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'friend-list-avatar' %>
+        <% else %>
+          <div class='friend-list-blank-avatar'></div>
+        <% end %>
+        <%= link_to friend.name, user_path(friend) %>
+      </div>
       <% if !!pending_requests.delete(friend.id) %>
-        Friend Request Sent
+        <i class="far fa-clock"></i>
       <% else %>
-        <%= button_to 'Add Friend', friend_requests_path, method: :post, params: { recipient_id: friend.id } %>
+        <%= button_to friend_requests_path, method: :post, class: 'add-friend', params: { recipient_id: friend.id } do %>
+          <i class="fas fa-user-plus"></i>
+        <% end %>
       <% end %>
-    </li>
+    </div>
   <% end %>
-</ul>
+</div>

@@ -1,42 +1,53 @@
-<h3>Profile for <%= @user.name %></h3>
-
-<%= render @user.posts.order(created_at: :desc) %>
-
-Friends:
-<ul>
-  <% @user.friends.each do |friend| %>
-    <li><%= link_to friend.name, user_path(friend) %></li>
+<div id='profile-summary'>
+  <% if @user.avatar.attached? %>
+    <%= image_tag url_for(@user.avatar.variant(resize_to_fill: [350, 350, { gravity: 'Center' }])), class: 'profile-avatar' %>
+  <% else %>
+    <div class='profile-avatar'></div>
   <% end %>
-</ul>
+  <div class='basic-info'>
+      <div class='profile-username'><%= @user.name %></div>
+      <div class='info-row'>
+        <ion-icon name="location-sharp"></ion-icon>
+        San Diego
+      </div>
+      <div class='info-row'>
+        <ion-icon name="school-sharp"></ion-icon>
+        University of Michigan
+      </div>
+      <div class='info-row'>
+        <ion-icon name="school-sharp"></ion-icon>
+        Yale University
+      </div>
+      <div class='info-row'>
+        <ion-icon name="briefcase-sharp"></ion-icon>
+        Cellist, San Diego Symphony
+      </div>
+      <div class='info-row'>
+        <i class="fas fa-birthday-cake"></i>
+        November 14
+      </div>
+  </div>
+</div>
 
 
-<% if @user == current_user %>
+<%= render @user.posts.order(created_at: :desc).limit(4) %>
+<%= link_to 'View all posts', user_posts_path(@user) %>
 
-  Friend Requests:
-  <ul>
-    <% @user.friend_invitations.includes(:requester).each do |invitation| %>
-      <li>
-        <%= link_to invitation.requester.name, user_path(invitation.requester) %>
-        <%= link_to 'Accept', confirm_friend_request_path(invitation), method: :post %>
-        <%= link_to 'Delete', delete_friend_request_path(invitation), method: :delete %>
-      </li>
-    <% end %>
-  </ul>
+<hr>
 
-  Find Friends:
-  <ul>
-    <% @user.non_friends_and_pending.each do |friend| %>
-      <li>
-        <% pending_requests = @user.requested_friends.pluck(:id) %>
-        <%= link_to friend.name, user_path(friend) %>
-        <% if !!pending_requests.delete(friend.id) %>
-          Friend Request Sent
-        <% else %>
-          <%= button_to 'Add Friend', friend_requests_path, method: :post, params: { recipient_id: friend.id } %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
 
-  <%= link_to 'Edit Account', edit_user_registration_path, class: 'end-link' %>
-<% end %>
+
+<%= "#{@user.name}'s top friends" %>
+<%= link_to '(see all)', user_friends_path(@user) %>
+<div class='friends-container'>
+  <% @user.friends.limit(8).each do |friend| %>
+    <div class='friend-row'>
+      <% if friend.avatar.attached? %>
+        <%= image_tag url_for(friend.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'friend-list-avatar' %>
+      <% else %>
+        <div class='friend-list-blank-avatar'></div>
+      <% end %>
+      <%= link_to friend.name, user_path(friend) %>
+    </div>
+  <% end %>
+</div>

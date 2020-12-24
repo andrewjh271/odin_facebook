@@ -16,6 +16,15 @@ class Friendship < ApplicationRecord
   belongs_to :friend_a, class_name: :User
   belongs_to :friend_b, class_name: :User
 
+  def self.search(friend_a, friend_b)
+    Friendship
+      .where('friend_a_id = ? AND friend_b_id = ?', friend_a.id, friend_b.id)
+      .or(
+    Friendship
+      .where('friend_b_id = ? AND friend_a_id = ?', friend_a.id, friend_b.id)
+      ).first
+  end
+
   private
   
   def no_self_referential_friendships

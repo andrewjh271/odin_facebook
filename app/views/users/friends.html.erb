@@ -1,6 +1,24 @@
-Friends:
-<ul>
+<h3>Friends:</h3>
+
+<div class='friends-container'>
   <% @friends.each do |friend| %>
-    <li><%= link_to friend.name, user_path(friend) %></li>
+    <div class='friend-full-row'>
+      <div class='friend-row'>
+        <% if friend.avatar.attached? %>
+          <%= image_tag url_for(friend.avatar.variant(resize_to_fill: [50, 50,
+                                                     { gravity: 'Center' }])),
+                                                    class: 'friend-list-avatar' %>
+        <% else %>
+          <div class='friend-list-blank-avatar'></div>
+        <% end %>
+        <%= link_to friend.name, user_path(friend) %>
+      </div>
+      <%= button_to destroy_friendship_path(Friendship.search(current_user, friend)),
+                    method: :delete,
+                    data: { confirm: "Really unfriend #{friend.name}?" },
+                    class: 'unfriend' do %>
+        <i class="fas fa-user-minus"></i>
+      <% end %>
+    </div>
   <% end %>
-</ul>
+</div>

@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     end
   end
 
-  delete 'unfriend', to: 'friendships#destroy'
+  delete 'unfriend/:id', to: 'friendships#destroy', as: 'destroy_friendship'
 
   get 'about', to: 'application#about'
 end

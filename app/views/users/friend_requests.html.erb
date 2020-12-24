@@ -1,10 +1,31 @@
-Friend Requests:
-<ul>
-  <% current_user.friend_invitations.includes(:requester).each do |invitation| %>
-    <li>
-      <%= link_to invitation.requester.name, user_path(invitation.requester) %>
-      <%= link_to 'Accept', confirm_friend_request_path(invitation), method: :post %>
-      <%= link_to 'Delete', delete_friend_request_path(invitation), method: :delete %>
-    </li>
+<h3>Friend Requests:</h3>
+
+<div class='friends-container'>
+  <% @invitations.each do |invitation| %>
+    <div class='friend-full-row'>
+      <div class='friend-row'>
+        <% if invitation.requester.avatar.attached? %>
+            <%= image_tag url_for(invitation.requester.avatar.variant(resize_to_fill: [50, 50,
+                                                      { gravity: 'Center' }])),
+                                                      class: 'friend-list-avatar' %>
+        <% else %>
+            <div class='friend-list-blank-avatar'></div>
+        <% end %>
+        <%= link_to invitation.requester.name, user_path(invitation.requester) %>
+      </div>
+      <div>
+        <%= link_to delete_friend_request_path(invitation),
+                    method: :delete,
+                    class: 'delete-request',
+                    data: { confirm: "Delete #{invitation.requester.name}'s friend request?" } do %>
+          <i class="fas fa-user-times"></i>
+        <% end %>
+        <%= link_to confirm_friend_request_path(invitation),
+                    method: :post,
+                    class: 'confirm-request' do %>
+          <i class="fas fa-user-check"></i>
+        <% end %>
+      </div>
+    </div>
   <% end %>
-</ul>
+</div>

@@ -1,5 +1,5 @@
 <div id='profile_sidebar'>
-  <%= image_tag url_for(current_user.avatar.variant(resize_to_fill: [200, 200, { gravity: 'Center' }])), class: 'sidebar-avatar' %>
+  <%= image_tag url_for(current_user.avatar.variant(resize_to_fill: [180, 180, { gravity: 'Center' }])), class: 'sidebar-avatar' %>
   <div class='sidebar-username'><%= current_user.name %></div>
 
   <div class='profile-row'>
@@ -17,7 +17,7 @@
   <div class='profile-row'>
     <%= link_to friends_requests_path do %>
       <% notifications = current_user.friend_invitations.count %>
-      <ion-icon name="flag" id='flag'></ion-icon>
+      <ion-icon name="flag-outline"></ion-icon>
       <span>Friend Requests<%= " (#{notifications})" if notifications > 0 %></span>
     <% end %>
   </div>

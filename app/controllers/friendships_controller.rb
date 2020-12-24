@@ -6,7 +6,7 @@ class FriendshipsController < ApplicationController
   def destroy
     @friendship.destroy
     respond_to do |format|
-      format.html { redirect_to user_url(current_user), notice: 'Friendship was successfully deleted.' }
+      format.html { redirect_back fallback_location: user_url(current_user), notice: 'Friendship was successfully deleted.' }
       format.json { head :no_content }
     end
   end

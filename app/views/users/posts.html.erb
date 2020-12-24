@@ -1,6 +1,5 @@
 <div class='posts'>
   <% @posts.includes(:likes, :author).each do |post| %>
     <%= render post %>
-    <br>
   <% end %>
 </div>
