@@ -22,6 +22,8 @@ class Post < ApplicationRecord
     as: :commentable,
     dependent: :destroy
 
+  has_many_attached :photos
+
   validates :body, presence: true
 
   def history

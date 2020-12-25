@@ -30,7 +30,11 @@
 </div>
 
 
-<%= render @user.posts.order(created_at: :desc).limit(4) %>
+<%= render @user.posts
+                .includes(:likes, comments: [:comments])
+                .order(created_at: :desc)
+                .limit(4) %>
+
 <%= link_to 'View all posts', user_posts_path(@user) %>
 
 <hr>
@@ -40,7 +44,7 @@
 <%= "#{@user.name}'s top friends" %>
 <%= link_to '(see all)', user_friends_path(@user) %>
 <div class='friends-container'>
-  <% @user.friends.limit(8).each do |friend| %>
+  <% @user.friends.with_attached_avatar.limit(8).each do |friend| %>
     <div class='friend-row'>
       <% if friend.avatar.attached? %>
         <%= image_tag url_for(friend.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'friend-list-avatar' %>

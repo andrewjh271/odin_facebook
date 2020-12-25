@@ -1,1 +1,10 @@
-My Photos
+<h3><%= "#{@user.name}'s Photos" %></h3>
+
+
+<div id='photos-container'>
+  <% @photos.each do |photo| %>
+    <a href=<%= photo_path(photo)%>>
+      <%= image_tag url_for(photo) %>
+    </a>
+  <% end %>
+</div>

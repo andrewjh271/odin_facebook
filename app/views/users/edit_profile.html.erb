@@ -1,6 +1,12 @@
 <%= form_with(model: @user, local: true, url: update_profile_path) do |form| %>
 
+  Profile Picture:
   <%= form.file_field :avatar, direct_upload: true %>
+
+<br>
+
+  Photos:
+  <%= form.file_field :photos, multiple: true %>
 
   <div class="submit-wrapper">
     <%= form.submit 'Update Profile' %>

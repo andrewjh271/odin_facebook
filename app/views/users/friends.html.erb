@@ -13,9 +13,10 @@
         <% end %>
         <%= link_to friend.name, user_path(friend) %>
       </div>
-      <%= button_to destroy_friendship_path(Friendship.search(current_user, friend)),
+      <%= button_to destroy_friendship_path,
                     method: :delete,
                     data: { confirm: "Really unfriend #{friend.name}?" },
+                    params: { friend_a_id: friend.id, friend_b_id: current_user.id },
                     class: 'unfriend' do %>
         <i class="fas fa-user-minus"></i>
       <% end %>

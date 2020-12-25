@@ -2,7 +2,7 @@
 
 <div class='friends-container'>
   <% pending_requests = current_user.requested_friends.pluck(:id) %>
-  <% current_user.non_friends_and_pending.order(:name).each do |friend| %>
+  <% current_user.non_friends_and_pending.with_attached_avatar.order(:name).each do |friend| %>
     <div class='friend-full-row'>
       <div class='friend-row'>
         <% if friend.avatar.attached? %>

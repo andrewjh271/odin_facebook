@@ -14,7 +14,7 @@ class FriendshipsController < ApplicationController
   private
 
   def set_friendship
-    @friendship = Friendship.find(params[:id])
+    @friendship = Friendship.search(params[:friend_a_id].to_i, params[:friend_b_id].to_i)
   end
 
   def require_friend!

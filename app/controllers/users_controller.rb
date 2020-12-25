@@ -10,13 +10,15 @@ class UsersController < ApplicationController
   end
 
   def posts
-    user = User.find(params[:user_id])
-    @posts = Post.where(author: user)
+    @user = User.find(params[:user_id])
+    @posts = Post.where(author: @user)
+                 .includes(:likes, comments: [:comments])
+                 .order(created_at: :desc)
   end
 
   def photos
-    user = User.find(params[:user_id])
-    # @photos = Photo.where(author: user)
+    @user = User.find(params[:user_id])
+    @photos = @user.photos
   end
 
   def likes
@@ -26,14 +28,14 @@ class UsersController < ApplicationController
 
   def friends
     if params[:user_id]
-      @friends = User.find(params[:user_id]).friends.order(:name)
+      @friends = User.find(params[:user_id]).friends.with_attached_avatar.order(:name)
     else
-      @friends = current_user.friends.order(:name)
+      @friends = current_user.friends.with_attached_avatar.order(:name)
     end
   end
 
   def friend_requests
-    @invitations = current_user.friend_invitations.includes(:requester)
+    @invitations = current_user.friend_invitations.includes(requester: { avatar_attachment: :blob} )
   end
 
   def find_friends
@@ -51,6 +53,6 @@ class UsersController < ApplicationController
   private
 
   def profile_params
-    params.require(:user).permit(:avatar)
+    params.require(:user).permit(:avatar, photos: [])
   end
 end

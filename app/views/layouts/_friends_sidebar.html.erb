@@ -1,7 +1,7 @@
 <div id='friends_sidebar'>
   <div id='friend-suggestions'>
     <h4>Friend Suggestions</h4>
-    <% current_user.no_contacts.limit(3).order("RANDOM()").each do |friend| %>
+    <% current_user.no_contacts.with_attached_avatar.limit(3).order("RANDOM()").each do |friend| %>
       <div class='friend-full-row'>
         <div class='friend-row'>
           <% if friend.avatar.attached? %>
@@ -21,7 +21,7 @@
   </div>
   <hr>
   <h4>Friends</h4>
-  <% current_user.friends.left_joins(:posts).group(:id).order('COUNT(posts.id) DESC').limit(40).each do |friend| %>
+  <% current_user.friends.with_attached_avatar.left_joins(:posts).group(:id).order('COUNT(posts.id) DESC').limit(40).each do |friend| %>
     <div class='friend-row'>
       <% if friend.avatar.attached? %>
         <%= image_tag url_for(friend.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'friend-list-avatar' %>

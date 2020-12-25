@@ -55,7 +55,8 @@ class User < ApplicationRecord
     ->(user) { unscope(:where).where('friend_a_id = ? OR friend_b_id = ?', user.id, user.id) },
     dependent: :destroy
 
-    has_one_attached :avatar
+  has_one_attached :avatar
+  has_many_attached :photos
 
   def friends
     join_statement = <<-SQL
