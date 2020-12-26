@@ -1,7 +1,5 @@
 <h3><%= "#{@user.name}'s Posts" %></h3>
 
 <div class='posts'>
-  <% @posts.includes(:likes, :author).each do |post| %>
-    <%= render post %>
-  <% end %>
+  <%= render @posts %>
 </div>

@@ -22,9 +22,9 @@ class Post < ApplicationRecord
     as: :commentable,
     dependent: :destroy
 
-  has_many_attached :photos
+  has_one_attached :photo
 
-  validates :body, presence: true
+  validate :contains_text_or_photo
 
   def history
     history = 
@@ -43,5 +43,13 @@ class Post < ApplicationRecord
   def get_post_or_photo_id
     # necessary in LikesController#referer_url_with_anchor for when likable is a comment
     id
+  end
+
+  private
+
+  def contains_text_or_photo
+    unless !body.empty? || photo.attached?
+      errors[:base] << 'Post must contain a text and/or photo.'
+    end
   end
 end

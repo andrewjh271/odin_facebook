@@ -4,7 +4,12 @@
 
 <div id='post-<%= post.id %>' class='post'>  
   <div class='history'><%= post.history %></div>
-  <div class='body'><%= post.body %></div>
+  <div class='body'>
+    <div class='body-text'><%= post.body %></div>
+    <% if post.photo.attached? %>
+      <%= image_tag url_for(post.photo), class: 'post-photo' %>
+    <% end %>
+  </div>
   <div class='author'><%= link_to post.author.name, user_url(post.author) %></div>
   <div class='post-links'>
     <%= link_to 'Show', post unless show_page %>
@@ -25,7 +30,7 @@
         <i class='fas fa-thumbs-up'></i>
       <% end %>
     <% end %>
-    <%= post.likes.length %>
+    <%= post.likes.size %>
   </div>
 
   <div class='comment-icon'>
@@ -36,9 +41,9 @@
     <% end %>
   </div>
 
-  <% if show_page && post.comments.count > 0 %>
+  <% if show_page && post.comments.size > 0 %>
     <div class='comments'>
-      <% post.comments.order(:created_at).includes(:comments).each do |comment| %>
+      <% post.comments.order(:created_at).each do |comment| %>
         <%= render comment, comment: comment, edit: edit, reply_to: reply_to %>
         <% if reply_to == comment.id %>
           <div class='comment-reply nest-reply'>

@@ -1,5 +1,6 @@
+$delightful-blue: #4267b2;
+
 /* photo display */
-/* https://css-tricks.com/seamless-responsive-photo-grid/ */
 
 #photos-container {
   /* Prevent vertical gaps */
@@ -25,11 +26,41 @@
   box-shadow: 0px 0px 3px 0px black;
 }
 
-#photo-container {
-  // max-width: 50vw;
-  // max-height: 70vh;
+.image-upload {
+  display: inline-flex;
 }
 
-.show-photo {
-  max-width: 50vw;
+.image-upload > input {
+  width: 164px;
+  margin-top: 6px;
+  margin-right: 2px;
+  font-size: 12px;
+  color: transparent;
+}
+
+.image-upload > input:focus, input:active, input:visited, input:hover {
+  outline: none;
+  color: black;
+}
+
+.hide-button {
+  position: relative;
+  left: 80px;
+  background: #f0f2f5;
+  height: 34px;
+  width: 82px;
+}
+
+.image-upload > label {
+  cursor: pointer;
+}
+
+.fa-file-image {
+  color: $delightful-blue;
+  font-size: 30px;
+  margin-right: 7px;
+}
+
+.fa-file-image:hover {
+  color: darkblue;
 }

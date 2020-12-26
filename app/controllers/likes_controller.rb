@@ -26,9 +26,7 @@ class LikesController < ApplicationController
     case request.referer
     when /posts\/\d/ then post_url(likable.get_post_or_photo_id, anchor: anchor)
     when /posts/ then posts_url(anchor: anchor)
-    # when /photos\/\d/ then post_url(likable.id)
     when /users\/\d+\/posts/ then user_posts_url(likable.author, anchor: anchor)
-    # when /users\/\d+\/photos/ then user_photos_url(likable.something, anchor: anchor)
     when /likes/ then user_likes_url(current_user.id)
     else root_url(anchor: anchor)
     end

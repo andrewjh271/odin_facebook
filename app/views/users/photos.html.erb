@@ -2,9 +2,9 @@
 
 
 <div id='photos-container'>
-  <% @photos.each do |photo| %>
-    <a href=<%= photo_path(photo)%>>
-      <%= image_tag url_for(photo) %>
+  <% @posts.each do |post| %>
+    <a href=<%= post_path(post)%>>
+      <%= image_tag url_for(post.photo) %>
     </a>
   <% end %>
 </div>

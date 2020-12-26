@@ -1,24 +1,19 @@
-# README
+# Odin Facebook
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+For `PostsController#show` I tried to preload the many nested records for `@post`, but I don't think it worked.
 
-Things you may want to cover:
+```ruby
+@post = Post.includes(
+                   :likes,
+                   comments: [
+                     :likes,
+                     author: { avatar_attachment: :blob},
+                     comments: [
+                        :likes,
+                        author: { avatar_attachment: :blob }
+                     ]
+                   ]
+                 )
+                .find(params[:id])
+```
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

@@ -34,11 +34,11 @@
           <%=  button_to 'Like', likes_path, params: { like: { user_id: current_user, likable_id: comment.id, likable_type: 'Comment' } }, class: 'hidden-button comment-links' %>
         <% end %>
       </div>
-      <% comment_likes = comment.likes.length %>
+      <% comment_likes = comment.likes.size %>
       <% if comment_likes > 0 %>
         <div class='comment-like-container'>
           <ion-icon class='comment-like' name="heart"></ion-icon><!--
-          --><span><%= comment.likes.length %></span>
+          --><span><%= comment.likes.size %></span>
         </div>
       <% end %>
     </div>

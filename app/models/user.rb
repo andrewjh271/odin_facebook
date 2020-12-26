@@ -56,7 +56,6 @@ class User < ApplicationRecord
     dependent: :destroy
 
   has_one_attached :avatar
-  has_many_attached :photos
 
   def friends
     join_statement = <<-SQL

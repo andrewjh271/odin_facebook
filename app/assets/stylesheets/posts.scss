@@ -15,18 +15,18 @@ $comment-width: 90%;
   background-color: #f9f9f9;
   box-shadow: 2px 3px 9px 0px #00000085;
   display: grid;
-  grid-template-columns: 20px 3fr 1fr;
+  grid-template-columns: 3fr 1fr;
   grid-template-rows: auto;
 }
 
 .post-links {
-  grid-column: 3 / 4;
+  grid-column: 2 / 3;
   grid-row: 1 / 2;
   justify-self: end;
 }
 
 .history {
-  grid-column: 1 / 4;
+  grid-column: 1 / 3;
   grid-row: 2 / 3;
   padding: 5px 0 5px 0;
   border-bottom: $subtle-border;
@@ -34,13 +34,24 @@ $comment-width: 90%;
 }
 
 .body {
-  grid-column: 2 / 4;
+  grid-column: 1 / 3;
   grid-row: 3 / 4;
   padding: 8px 0 8px 0;
 }
 
+.body-text {
+  margin-left: 1vw;
+}
+
+.post-photo {
+  min-width: 90%;
+  max-width: 100%;
+  display: block;
+  margin: 1vh auto 0 auto;
+}
+
 .author {
-  grid-column: 1 / 3;
+  grid-column: 1 / 2;
   grid-row: 1 / 2;
   box-sizing: border-box;
   color: $delightful-blue;
@@ -51,7 +62,7 @@ $comment-width: 90%;
 .comment-icon {
   display: flex;
   justify-content: flex-end;
-  grid-column: 3 / 4;
+  grid-column: 2 / 3;
   grid-row: 4 / 5;
   border-top: $subtle-border;
   color: $delightful-blue;
@@ -61,7 +72,7 @@ $comment-width: 90%;
 
 .like {
   display: flex;
-  grid-column: 1 / 3;
+  grid-column: 1 / 2;
   grid-row: 4 / 5;
   border-top: $subtle-border;
   padding-top: 8px;
@@ -114,7 +125,7 @@ $comment-width: 90%;
 
 .like-border {
   height: 100%;
-  grid-column: 3 / 4;
+  grid-column: 2 / 3;
   grid-row: 5 / 6;
   border-top: $subtle-border;
   box-sizing: border-box;
@@ -123,15 +134,27 @@ $comment-width: 90%;
 // new post
 
 textarea {
+  background: #2529e812;
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
   box-sizing: border-box;
   width: 100%;
   resize: none;
+  min-height: 7vh;
+  height: fit-content;
 }
 
 textarea:focus {
   outline: none;
-  background-color: #d0e2e8;
+  background: #d9eff76e;
   box-shadow: 0 0 7px 1px #00000029;
+}
+
+.form-photo {
+  width: 100%;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
 }
 
 .submit-wrapper {
@@ -140,7 +163,8 @@ textarea:focus {
 }
 
 .submit-post {
-  width: 21%;
+  width: 9vw;
+  height: 30px;
   padding: 5px;
   border: none;
   background-color: #58a1e0;
@@ -159,10 +183,15 @@ textarea:focus {
   outline: none;
 }
 
+.post-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
 // comments
 
 .comments {
-  grid-column: 1 / 4;
+  grid-column: 1 / 3;
   grid-row: 5 / 6;
   padding: 8px 0 0 0;
   border-top: 1px solid #00000027;
@@ -170,7 +199,7 @@ textarea:focus {
 }
 
 .new-comment {
-  grid-column: 1 / 4;
+  grid-column: 1 / 3;
   grid-row: 6 / 7;
   display: flex;
   padding: 8px 0 8px 0;
@@ -265,17 +294,6 @@ textarea:focus {
 
 .comment-form {
   width: 100%;
-}
-
-.comment-form textarea {
-  background: #2529e812;
-  border: none;
-  padding: 5px;
-  border-radius: 10px;
-}
-
-.comment-form textarea:focus {
-  background: #d9eff76e;
 }
 
 .comment-submit {

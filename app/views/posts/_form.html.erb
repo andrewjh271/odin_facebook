@@ -1,9 +1,33 @@
+<% submit = post.persisted? ? 'Update' : 'Post' %>
+<% placeholder = post.photo.attached? ? 'Enter a caption...' : 'What\'s on your mind?' %>
+
 <%= form_with(model: post, local: true) do |form| %>
 
-  <%= form.text_area :body, rows: '6', placeholder: "What's on your mind?", autofocus: autofocus %>
+      <%= form.text_area :body, placeholder: placeholder, autofocus: autofocus %>
 
-  <div class="submit-wrapper">
-    <%= form.submit 'Post', class: 'submit-post' %>
+      <% if post.photo.attached? %>
+          <%= image_tag url_for(post.photo.variant(resize_to_fill: [200, 200, { gravity: 'Center' }])), class: 'form-photo' %>
+      <% end %>
+
+  <div class='post-buttons'>
+
+    <div class="image-upload">
+
+
+      <div class='hide-button'></div>
+      <%= form.file_field :photo, id:"photo-input", direct_upload: true %>
+      <label for="photo-input">
+        <i class="far fa-file-image"></i>
+      </label>
+
+
+    </div>
+
+    
+
+    <div class="submit-wrapper">
+      <%= form.submit submit, class: 'submit-post' %>
+    </div>
   </div>
 <% end %>
 <br>

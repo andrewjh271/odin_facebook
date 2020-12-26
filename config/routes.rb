@@ -25,9 +25,7 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments, only: [:new, :edit]
   end
-  resources :photos, only: [:new, :create, :show, :destroy] do
-    resources :comments, only: [:new, :edit]
-  end
+
   resources :comments, only: [:create, :update, :destroy]
   get 'posts/:comment_id/new', to: 'comments#new_reply', as: 'new_reply'
   get 'posts/:comment_id/edit', to: 'comments#edit_reply', as: 'edit_reply'

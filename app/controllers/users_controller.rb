@@ -12,18 +12,25 @@ class UsersController < ApplicationController
   def posts
     @user = User.find(params[:user_id])
     @posts = Post.where(author: @user)
-                 .includes(:likes, comments: [:comments])
                  .order(created_at: :desc)
+                 .with_attached_photo
+                 .includes(:likes, :author, comments: :comments)
   end
 
   def photos
     @user = User.find(params[:user_id])
-    @photos = @user.photos
+    @posts = @user.posts
+                  .joins(:photo_attachment)
+                  .order(created_at: :desc)
+                  .with_attached_photo
   end
 
   def likes
-    user = User.find(params[:user_id])
-    @likes = user.likes.where(likable_type: 'Post').includes(:likable)
+    @posts = Post.joins(:likes)
+                 .where(likes: { user_id: params[:user_id] })
+                 .with_attached_photo
+                 .includes(:likes, comments: :comments, author: { avatar_attachment: :blob })
+                 .order(created_at: :desc)
   end
 
   def friends
