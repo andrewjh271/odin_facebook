@@ -21,7 +21,7 @@
   </div>
   <hr>
   <h4>Friends</h4>
-  <% current_user.friends.with_attached_avatar.left_joins(:posts).group(:id).order('COUNT(posts.id) DESC').limit(40).each do |friend| %>
+  <% current_user.friends.with_attached_avatar.order(:name).limit(40).each do |friend| %>
     <div class='friend-row'>
       <% if friend.avatar.attached? %>
         <%= image_tag url_for(friend.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'friend-list-avatar' %>

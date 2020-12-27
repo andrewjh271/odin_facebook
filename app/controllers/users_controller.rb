@@ -35,14 +35,20 @@ class UsersController < ApplicationController
 
   def friends
     if params[:user_id]
-      @friends = User.find(params[:user_id]).friends.with_attached_avatar.order(:name)
+      @friends = User.find(params[:user_id])
+                     .friends.with_attached_avatar
+                     .order(:name)
     else
-      @friends = current_user.friends.with_attached_avatar.order(:name)
+      @friends = current_user.friends
+                             .with_attached_avatar
+                             .order(:name)
     end
   end
 
   def friend_requests
-    @invitations = current_user.friend_invitations.includes(requester: { avatar_attachment: :blob} )
+    @invitations = current_user.friend_invitations
+                               .includes(requester: { avatar_attachment: :blob} )
+                               .order('users.name')
   end
 
   def find_friends
