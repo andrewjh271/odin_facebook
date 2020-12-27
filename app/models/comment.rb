@@ -12,6 +12,7 @@
 #
 class Comment < ApplicationRecord
   include ActionView::Helpers::DateHelper
+  include ElapsedTime
 
   belongs_to :author, class_name: :User
   belongs_to :commentable, polymorphic: true
@@ -26,12 +27,7 @@ class Comment < ApplicationRecord
   validates :body, presence: true
 
   def history
-    # if (Time.now - created_at) / 60 / 60 / 24 < 200
-    #   created_at.strftime("%b %-d")
-    # else
-    #   created_at.strftime("%b '%y")
-    # end
-    created_at.strftime("%b %-d '%y")
+    simple_elapsed_time(created_at)
   end
 
   def get_post_or_photo_id
