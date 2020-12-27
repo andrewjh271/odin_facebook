@@ -33,7 +33,7 @@ class Post < ApplicationRecord
       else
         created_at.strftime('%b %-d %Y')
       end
-    created_at == updated_at ? history : (history + '<i> (edited)</i>').html_safe
+    (updated_at - created_at < 1) ? history : (history + '<i> (edited)</i>').html_safe
   end
 
   def total_comments
