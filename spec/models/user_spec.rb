@@ -31,6 +31,7 @@ RSpec.describe User, type: :model do
       it { should have_many(:requested_friends) }
       it { should have_many(:friend_invitations) }
       it { should have_many(:requesting_friends) }
+      it { should have_one_attached(:avatar) }
     end
 
     context 'custom association methods' do
@@ -83,6 +84,14 @@ RSpec.describe User, type: :model do
         end
       end
 
+    end
+  end
+
+  describe '#set_avatar!' do
+    it 'should set a user\'s avatar' do
+      user.save!
+      user.set_avatar!
+      expect(user.avatar.attached?).to be true
     end
   end
 end

@@ -24,7 +24,10 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'GET #photos' do
-    xit 'renders photos page'
+    it 'renders photos page' do
+      get :photos, params: { user_id: user.id }
+      expect(response).to render_template(:photos)
+    end
   end
 
   describe 'GET likes' do
