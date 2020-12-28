@@ -9,8 +9,15 @@
     <% end %>
   </div>
   <div class='profile-row'>
-    <%= link_to edit_profile_path do %>
+    <%= link_to profile_path do %>
       <ion-icon name="person-circle-outline"></ion-icon>
+      <span>Profile</span>
+    <% end %>
+  </div>
+  <div class='profile-row'>
+    <%= link_to edit_profile_path do %>
+      
+      <ion-icon name="color-palette-outline"></ion-icon>
       <span>Edit Profile</span>
     <% end %>
   </div>
@@ -54,7 +61,7 @@
   <hr>
   <div class='profile-row'>
     <%= link_to new_post_path do %>
-      <i class="fas fa-pencil-alt"></i>
+      <ion-icon name="create-outline"></ion-icon>
       <span>New Post</span>
     <% end %>
   </div>

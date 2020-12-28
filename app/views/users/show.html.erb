@@ -31,15 +31,31 @@
 
 
 <%= render @user.posts
-                .includes(:likes, comments: [:comments])
+                .left_outer_joins(:photo_attachment)
+                .where( active_storage_attachments: { id: nil} )
                 .order(created_at: :desc)
-                .limit(4) %>
+                .limit(4)
+                .includes(:likes, comments: [:comments]) %>
 
 <%= link_to 'View all posts', user_posts_path(@user) %>
 
 <hr>
 
+<div id='photos-container'>
+  <% posts = @user.posts
+                  .joins(:photo_attachment)
+                  .order(created_at: :desc)
+                  .limit(6)
+                  .with_attached_photo %>
+  <% posts.each do |post| %>
+    <a href=<%= post_path(post)%>>
+      <%= image_tag url_for(post.photo) %>
+    </a>
+  <% end %>
+</div>
+<%= link_to 'View all photos', user_photos_path(@user) %>
 
+<hr>
 
 <%= "#{@user.name}'s top friends" %>
 <%= link_to '(see all)', user_friends_path(@user) %>
