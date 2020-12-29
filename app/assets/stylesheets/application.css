@@ -25,12 +25,13 @@
 
 header {
   display: flex;
-  padding-left: 3vw;
-  padding-right: 3vw;
+  position: sticky;
+  z-index: 1;
+  top: 0;
   justify-content: space-between;
-  height: 7vh;
-  background-color: #7190af6b;
-  background-image: linear-gradient(45deg, #3c4e5d, #afd8ec85);
+  height: 6vh;
+  background-color: #4267b2cf;
+  background-image: linear-gradient(155deg, #7ea3c145, #73adcaad);
   box-sizing: border-box;
 }
 
@@ -100,6 +101,7 @@ sup {
 
 .flash-container {
   background-color: #7c7aff4f;
+  height: 4vh;
 }
 
 #notice {
@@ -133,19 +135,18 @@ a:visited {
 /* container for pages other than root */
 
 .page-body {
-  margin-top: 2vh;
-  min-height: 91vh;
-  padding: 1vh 3vw 2vw 3vw;
+  padding-bottom: 1vh;
   box-sizing: border-box;
-  /* display: flex;
-  flex-direction: column; */
-  display: grid;
-  grid-template-columns: 1fr 2.5fr 1fr;
-  grid-column-gap: 3vh;
+  display: flex;
 }
 
 #main {
-  grid-column: 2 / 3;
+  margin-top: 3vh;
+  margin-left: 20%;
+  width: 60%;
+  box-sizing: border-box;
+  padding-right: 2vw;
+  padding-left: 2vw;
 }
 
 /* submit, create, edit, cancel, etc. */

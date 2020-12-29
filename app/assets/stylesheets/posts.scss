@@ -17,6 +17,7 @@ $comment-width: 90%;
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: auto;
+  scroll-margin-top: 6vh;
 }
 
 .post-links {
@@ -214,6 +215,7 @@ textarea:focus {
 .comment {
  display: flex;
  margin-bottom: 1vh;
+ scroll-margin-top: 6vh;
 }
 
 .comment-profile-picture {

@@ -39,9 +39,13 @@ $delightful-blue: #4267b2;
   color: transparent;
 }
 
-.image-upload > input:focus, input:active, input:visited, input:hover {
+.image-upload input:focus,
+.image-upload input:active,
+.image-upload input:visited,
+.image-upload input:hover {
   outline: none;
   color: black;
+
 }
 
 .hide-button {

@@ -1,24 +1,71 @@
-#profile_sidebar {
-  grid-column: 1 / 2;
-  border: 1px solid black;
-  padding-left: 1vw;
-  padding-top: 1vh;
-}
+$delightful-blue: #4267b2;
 
-#friends_sidebar {
-  grid-column: 3 / 4;
-  border: 1px solid black;
-  padding-left: 1vw;
+#profile_sidebar {
+  position: fixed;
+  width: 20%;
+  height: 100vh;
+  box-sizing: border-box;
+  
+  box-shadow: 2px 3px 9px 0px #00000085;
+  padding-top: 3vh;
 }
 
 .sidebar-avatar {
   object-fit: cover;
   border-radius: 50%;
   margin: auto;
+  padding-left: 1vw;
   display: block;
 }
 
 .sidebar-username {
+  padding-left: 1vw;
   font-size: 24px;
   margin-bottom: 2vh;
+}
+
+#profile_sidebar hr {
+  margin-right: 1vw;
+  margin-left: 1vw;
+}
+
+.profile-row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 1vw;
+}
+
+.profile-row a {
+  color: $delightful-blue;
+}
+
+.profile-row:hover {
+  background-color: #c2d9ec;
+  cursor: pointer;
+}
+
+.profile-row:hover a {
+  color: #0c0d0e;
+  text-decoration: none;
+}
+
+#friends-sidebar {
+  position: fixed;
+  right: 0;
+  width: 20%;
+  height: 94vh;
+  padding: 3vh 0 4.5vh 1vw;
+  box-sizing: border-box;
+  box-shadow: 2px 3px 9px 0px #00000085;
+  overflow-y: scroll;
+}
+
+#friends-sidebar h4 {
+  margin-top: 0;
+}
+
+#friends-sidebar hr {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  margin-right: 1vw;
 }

@@ -12,18 +12,12 @@
   <div class='post-buttons'>
 
     <div class="image-upload">
-
-
       <div class='hide-button'></div>
-      <%= form.file_field :photo, direct_upload: true %>
+      <%= form.file_field :photo, direct_upload: true, id: 'photo-input' %>
       <label for="photo-input">
         <i class="far fa-file-image"></i>
       </label>
-
-
     </div>
-
-    
 
     <div class="submit-wrapper">
       <%= form.submit submit, class: 'submit-post' %>
