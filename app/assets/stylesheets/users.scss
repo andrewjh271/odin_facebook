@@ -1,3 +1,5 @@
+$delightful-blue: #4267b2;
+
 #profile-summary {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -117,4 +119,48 @@ h3 {
 .delete-request:hover {
   color: #f12bf3;
   text-decoration: none;
+}
+
+// edit profile
+
+.edit-profile-avatar {
+  margin-top: 1vh;
+}
+
+.edit-profile-container input:focus {
+  outline: none;
+}
+
+.edit-profile-container select:focus {
+  outline: none;
+}
+
+.update-profile {
+  height: 30px;
+  padding: 5px 8px 5px 8px;
+  border: none;
+  background-color: #58a1e0;
+  font-size: 15px;
+  color: white;
+  border-radius: 5px;
+}
+
+.update-profile:hover {
+  cursor: pointer;
+  background-color: $delightful-blue;
+  transition: 300ms;
+  color: white;
+}
+
+.profile-text-fields input {
+  box-sizing: content-box;
+  border: 1px solid gray;
+  line-height: 17px;
+  width: 30%;
+}
+
+.profile-text-fields input:focus {
+  outline: none;
+  border: 1px solid gray;
+  background-color: lightblue;
 }

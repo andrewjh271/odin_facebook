@@ -5,27 +5,45 @@
     <div class='profile-avatar'></div>
   <% end %>
   <div class='basic-info'>
-      <div class='profile-username'><%= @user.name %></div>
+    <div class='profile-username'><%= @user.name %></div>
+
+    <% unless @user.location.blank? %>
       <div class='info-row'>
         <ion-icon name="location-sharp"></ion-icon>
-        San Diego
+        <%= @user.location %>
       </div>
-      <div class='info-row'>
-        <ion-icon name="school-sharp"></ion-icon>
-        University of Michigan
-      </div>
-      <div class='info-row'>
-        <ion-icon name="school-sharp"></ion-icon>
-        Yale University
-      </div>
-      <div class='info-row'>
-        <ion-icon name="briefcase-sharp"></ion-icon>
-        Cellist, San Diego Symphony
-      </div>
+    <% end %>
+
+    <% unless @user.birthday.blank? %>
       <div class='info-row'>
         <i class="fas fa-birthday-cake"></i>
-        November 14
+        <%= @user.formatted_birthday %>
       </div>
+    <% end %>
+
+    <% [1, 2, 3].each do |n| %>
+      <% unless @user.send("education#{n}").blank? %>
+        <div class='info-row'>
+          <ion-icon name="school-sharp"></ion-icon>
+          <%= @user.send("education#{n}") %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% unless @user.occupation.blank? %>
+      <div class='info-row'>
+        <ion-icon name="briefcase-sharp"></ion-icon>
+        <%= @user.occupation %>
+      </div>
+    <% end %>
+
+    <% unless @user.website.blank? %>
+      <div class='info-row'>
+        <ion-icon name="globe-outline"></ion-icon>
+        <%= link_to @user.website, @user.website %>
+      </div>
+    <% end %>
+  
   </div>
 </div>
 

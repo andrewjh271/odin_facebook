@@ -11,6 +11,13 @@
 #  remember_created_at    :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  location               :string
+#  education1             :string
+#  education2             :string
+#  education3             :string
+#  occupation             :string
+#  website                :string
+#  birthday               :date
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -114,6 +121,10 @@ class User < ApplicationRecord
     File.open(path) do |io|
       avatar.attach(io: io, filename: filename)
     end
+  end
+
+  def formatted_birthday
+    birthday.strftime('%B %-d')
   end
 
   private

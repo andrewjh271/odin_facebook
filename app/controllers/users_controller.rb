@@ -60,12 +60,14 @@ class UsersController < ApplicationController
 
   def update_profile
     current_user.update(profile_params)
-    redirect_to root_url
+    redirect_to profile_url
   end
 
   private
 
   def profile_params
-    params.require(:user).permit(:avatar)
+    params.require(:user)
+          .permit(:avatar, :location, :birthday, :occupation,
+                  :education1, :education2, :education3, :website)
   end
 end
