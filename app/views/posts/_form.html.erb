@@ -6,7 +6,7 @@
       <%= form.text_area :body, placeholder: placeholder, autofocus: autofocus %>
 
       <% if post.photo.attached? %>
-          <%= image_tag url_for(post.photo.variant(resize_to_fill: [200, 200, { gravity: 'Center' }])), class: 'form-photo' %>
+          <%= image_tag url_for(post.photo), class: 'form-photo' %>
       <% end %>
 
   <div class='post-buttons'>

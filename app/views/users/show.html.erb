@@ -1,6 +1,6 @@
 <div id='profile-summary'>
   <% if @user.avatar.attached? %>
-    <%= image_tag url_for(@user.avatar.variant(resize_to_fill: [350, 350, { gravity: 'Center' }])), class: 'profile-avatar' %>
+    <%= image_tag url_for(@user.avatar), class: 'profile-avatar' %>
   <% else %>
     <div class='profile-avatar'></div>
   <% end %>

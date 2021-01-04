@@ -1,5 +1,9 @@
 <div id='profile_sidebar'>
-  <%= image_tag url_for(current_user.avatar.variant(resize_to_fill: [180, 180, { gravity: 'Center' }])), class: 'sidebar-avatar' %>
+  <% if current_user.avatar.attached? %>
+    <%= image_tag url_for(current_user.avatar), class: 'sidebar-avatar' %>
+  <% else %>
+    <div class='sidebar-blank-avatar'></div>
+  <% end %>
   <div class='sidebar-username'><%= current_user.name %></div>
 
   <div class='profile-row'>
