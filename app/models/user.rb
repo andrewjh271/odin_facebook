@@ -116,7 +116,7 @@ class User < ApplicationRecord
   end
 
   def set_avatar!
-    filename = "#{rand(11)}.png"
+    filename = "#{rand(15)}.png"
     path = Rails.root.join("app/assets/images/Default Avatars", filename)
     File.open(path) do |io|
       avatar.attach(io: io, filename: filename)
