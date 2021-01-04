@@ -5,12 +5,14 @@
   <% current_user.non_friends_and_pending.with_attached_avatar.order(:name).each do |friend| %>
     <div class='friend-full-row'>
       <div class='friend-row'>
-        <% if friend.avatar.attached? %>
-          <%= image_tag url_for(friend.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'friend-list-avatar' %>
-        <% else %>
-          <div class='friend-list-blank-avatar'></div>
-        <% end %>
-        <%= link_to friend.name, user_path(friend) %>
+        <a href=<%= user_path(friend) %>>
+          <% if friend.avatar.attached? %>
+            <%= image_tag url_for(friend.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'friend-list-avatar' %>
+          <% else %>
+            <div class='friend-list-blank-avatar'></div>
+          <% end %>
+          <%= link_to friend.name, user_path(friend) %>
+        </a>
       </div>
       <% if !!pending_requests.delete(friend.id) %>
         <i class="far fa-clock"></i>
