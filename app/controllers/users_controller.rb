@@ -26,8 +26,9 @@ class UsersController < ApplicationController
   end
 
   def likes
-    @posts = Post.joins(:likes)
-                 .where(likes: { user_id: params[:user_id] })
+    liked_posts_ids = Like.where(user_id: params[:user_id], likable_type: "Post")
+                          .pluck(:likable_id)
+    @posts = Post.where('id IN (?)', liked_posts_ids)
                  .with_attached_photo
                  .includes(:likes, comments: :comments, author: { avatar_attachment: :blob })
                  .order(created_at: :desc)
