@@ -82,12 +82,14 @@
 <div class='friends-container'>
   <% @user.friends.with_attached_avatar.limit(8).each do |friend| %>
     <div class='friend-row'>
-      <% if friend.avatar.attached? %>
-        <%= image_tag url_for(friend.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'friend-list-avatar' %>
-      <% else %>
-        <div class='friend-list-blank-avatar'></div>
-      <% end %>
-      <%= link_to friend.name, user_path(friend) %>
+      <a href=<%= user_path(friend) %>>
+        <% if friend.avatar.attached? %>
+          <%= image_tag url_for(friend.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'friend-list-avatar' %>
+        <% else %>
+          <div class='friend-list-blank-avatar'></div>
+        <% end %>
+        <%= link_to friend.name, user_path(friend) %>
+      </a>
     </div>
   <% end %>
 </div>
