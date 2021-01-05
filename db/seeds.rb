@@ -78,7 +78,7 @@ ActiveRecord::Base.transaction do
 
   # create posts
   posts = []
-  200.times do |i|
+  250.times do |i|
     date = Faker::Date.between(from: 2.years.ago, to: Date.today)
     body = case i
            when 0..30 then Faker::GreekPhilosophers.quote
@@ -106,7 +106,7 @@ ActiveRecord::Base.transaction do
   # create comments
   comments = []
   posts.each do |post|
-    rand(5).times do
+    rand(6).times do
       user = @users[rand(@users.length)]
       date = Faker::Date.between(from: post.created_at, to: Date.today)
       body = Faker::Quote.jack_handey
@@ -121,7 +121,7 @@ ActiveRecord::Base.transaction do
   # create nested comments
   nested_comments = []
   comments.each do |comment|
-    rand(3).times do
+    rand(4).times do
       user = @users[rand(@users.length)]
       date = Faker::Date.between(from: comment.created_at, to: Date.today)
       body = Faker::Movies::HitchhikersGuideToTheGalaxy.marvin_quote
@@ -136,13 +136,13 @@ ActiveRecord::Base.transaction do
   # create likes
   @users.length.times do |i|
     random_likable_reset!(posts.length)
-    rand(posts.length / 2).times { Like.create!(likable: posts[random_likable], user: @users[i]) }
+    rand(posts.length / 4).times { Like.create!(likable: posts[random_likable], user: @users[i]) }
 
     random_likable_reset!(comments.length)
-    rand(comments.length / 3).times { Like.create!(likable: comments[random_likable], user: @users[i]) }
+    rand(comments.length / 12).times { Like.create!(likable: comments[random_likable], user: @users[i]) }
 
     random_likable_reset!(nested_comments.length)
-    rand(nested_comments.length / 3).times { Like.create!(likable: nested_comments[random_likable], user: @users[i]) }
+    rand(nested_comments.length / 19).times { Like.create!(likable: nested_comments[random_likable], user: @users[i]) }
   end
 
   # create friendships
