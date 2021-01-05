@@ -23,7 +23,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
-  after_commit :ensure_avatar
+  after_commit :ensure_avatar, unless: :seed_user?
+  after_create :create_friend_invitations, unless: :seed_user?
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -129,8 +130,20 @@ class User < ApplicationRecord
 
   private
 
+  REQUESTING_FRIENDS_IDS = [1, 5, 8, 24, 25, 26, 31, 39, 48, 50]
+
   def ensure_avatar
-    # avoid setting a default avatar for seed User
-    set_avatar! unless id <= 51 || avatar.attached?
+    set_avatar! unless avatar.attached?
+  end
+
+  def create_friend_invitations
+    REQUESTING_FRIENDS_IDS.each do |requester_id|
+      friend_request = friend_invitations.build(requester_id: requester_id)
+      friend_request.save
+    end
+  end
+
+  def seed_user?
+    id <= 51
   end
 end
