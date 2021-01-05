@@ -12,7 +12,7 @@
     <div class='comment-bubble'>
       <div class='comment-header'>
         <%= link_to comment.author.name, comment.author, class: 'author' %>
-        <div>
+        <div class='comment-author-links'>
           <%= link_to 'Edit |', edit_post_comment_path(comment.get_post_or_photo_id, comment) if comment.author == current_user && edit != comment.id %>
           <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: "Are you sure?" } if comment.author == current_user %>
         </div>

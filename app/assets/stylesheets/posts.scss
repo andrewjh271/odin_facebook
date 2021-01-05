@@ -234,7 +234,6 @@ textarea:focus {
 
 .comment-main {
   width: fit-content;
-  min-width: 40%;
 }
 
 .comment-bubble {
@@ -246,6 +245,10 @@ textarea:focus {
 .comment-header {
   display: flex;
   justify-content: space-between;
+}
+
+.comment-author-links {
+  margin-left: 1vw;
 }
 
 .comment-footer {
