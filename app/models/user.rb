@@ -130,6 +130,7 @@ class User < ApplicationRecord
   private
 
   def ensure_avatar
-    set_avatar! unless avatar.attached?
+    # avoid setting a default avatar for seed User
+    set_avatar! unless id <= 51 || avatar.attached?
   end
 end

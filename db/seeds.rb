@@ -7,12 +7,41 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 def random_likable
-  @likables.pop
+  @likable_indices.pop
 end
 
 def random_likable_reset!(n)
-  @likables = (0...n).to_a.shuffle
+  @likable_indices = (0...n).to_a.shuffle
 end
+
+def assign_avatar!(user, name)
+  filename = "#{name}.jpg"
+  path = Rails.root.join("app/assets/images/Seed Avatars", filename)
+  File.open(path) do |io|
+    user.avatar.attach(io: io, filename: filename)
+  end
+end
+
+def user_params(name)
+  random = rand
+  education1 = Faker::University.name if random > 0.2
+  education2 = Faker::University.name if random > 0.5
+  education3 = Faker::University.name if random > 0.8
+  occupation = Faker::Job.title if rand < 0.8
+  {
+    name: name,
+    email: Faker::Internet.email,
+    password: ENV['SEED_USER_PASSWORD'],
+    education1: education1,
+    education2: education2,
+    education3: education3,
+    location: Faker::Address.city,
+    occupation: occupation,
+    birthday: Faker::Date.birthday(min_age: 18, max_age: 65)
+  }
+end
+
+@users = []
 
 ActiveRecord::Base.transaction do
   Friendship.destroy_all
@@ -29,25 +58,27 @@ ActiveRecord::Base.transaction do
   ActiveRecord::Base.connection.reset_pk_sequence!('friend_requests')
   ActiveRecord::Base.connection.reset_pk_sequence!('comments')
 
-  users = []
-  30.times do
-    users << User.create!(
-      name: Faker::Name.name,
-      email: Faker::Internet.email,
-      password: ENV['SEED_USER_PASSWORD']
-    )
+  50.times do |i|
+    first_name = i <= 27 ? Faker::Name.female_first_name : Faker::Name.male_first_name
+    name = "#{first_name} #{Faker::Name.last_name}"
+    @users << User.create!(user_params(name))
   end
 
   sample_user = User.create!(
     name: 'Odin',
     email: 'odin@example.com',
-    password: 'password'
+    password: 'password',
+    education1: 'Mead of Poetry',
+    location: 'Iceland',
+    occupation: 'God of Knowledge',
+    website: 'www.theodinproject.com',
+    birthday: '1/12/0040'
   )
+  @users << sample_user
 
-  users << sample_user
-
+  # create posts
   posts = []
-  110.times do |i|
+  200.times do |i|
     date = Faker::Date.between(from: 2.years.ago, to: Date.today)
     body = case i
            when 0..30 then Faker::GreekPhilosophers.quote
@@ -59,7 +90,7 @@ ActiveRecord::Base.transaction do
 
     posts << Post.create!(
       body: body,
-      author: users[rand(users.length)],
+      author: @users[rand(@users.length)],
       created_at: date,
       updated_at: date
     )
@@ -72,10 +103,11 @@ ActiveRecord::Base.transaction do
 
   posts << sample_post
 
+  # create comments
   comments = []
   posts.each do |post|
     rand(5).times do
-      user = users[rand(users.length)]
+      user = @users[rand(@users.length)]
       date = Faker::Date.between(from: post.created_at, to: Date.today)
       body = Faker::Quote.jack_handey
       comments << Comment.create!(commentable: post,
@@ -86,10 +118,11 @@ ActiveRecord::Base.transaction do
     end
   end
 
+  # create nested comments
   nested_comments = []
   comments.each do |comment|
     rand(3).times do
-      user = users[rand(users.length)]
+      user = @users[rand(@users.length)]
       date = Faker::Date.between(from: comment.created_at, to: Date.today)
       body = Faker::Movies::HitchhikersGuideToTheGalaxy.marvin_quote
       nested_comments << Comment.create!(commentable: comment,
@@ -100,14 +133,37 @@ ActiveRecord::Base.transaction do
     end
   end
 
-  users.length.times do |i|
+  # create likes
+  @users.length.times do |i|
     random_likable_reset!(posts.length)
-    rand(posts.length / 2).times { Like.create!(likable: posts[random_likable], user: users[i]) }
+    rand(posts.length / 2).times { Like.create!(likable: posts[random_likable], user: @users[i]) }
 
     random_likable_reset!(comments.length)
-    rand(comments.length / 2).times { Like.create!(likable: comments[random_likable], user: users[i]) }
+    rand(comments.length / 3).times { Like.create!(likable: comments[random_likable], user: @users[i]) }
 
     random_likable_reset!(nested_comments.length)
-    rand(nested_comments.length / 2).times { Like.create!(likable: nested_comments[random_likable], user: users[i]) }
+    rand(nested_comments.length / 3).times { Like.create!(likable: nested_comments[random_likable], user: @users[i]) }
   end
+
+  # create friendships
+  @users.length.times do |i|
+    user_indices = ((i + 1)...@users.length).to_a.shuffle
+    (user_indices.length / 2).times do
+      Friendship.create!(friend_a: @users[i], friend_b: @users[(user_indices.pop)])
+    end
+  end
+
+  # create friend requests for Odin
+  sample_user.no_contacts.take(15).each_with_index do |user, i|
+    if i < 10
+      FriendRequest.create!(requester: user, recipient: sample_user)
+    else
+      FriendRequest.create!(requester: sample_user, recipient: user)
+    end
+  end
+end
+
+# set seed avatars
+@users.each_with_index do |user, index|
+  assign_avatar!(user, index)
 end
