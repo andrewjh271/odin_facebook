@@ -47,24 +47,29 @@
         <%= render comment, comment: comment, edit: edit, reply_to: reply_to %>
         <% if reply_to == comment.id %>
           <div class='comment-reply nest-reply'>
-            <% if current_user.avatar.attached? %>
-              <%= image_tag url_for(current_user.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'comment-avatar' %>
-            <% else %>
-              <div class='comment-profile-picture'></div>
-            <% end %>
+            <a href=<%= user_path(current_user) %>>
+              <% if current_user.avatar.attached? %>
+                <%= image_tag url_for(current_user.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'comment-avatar' %>
+              <% else %>
+                <div class='comment-profile-picture'></div>
+              <% end %>
+            </a>
             <div class='reply-form'><%= render 'comments/form', comment: comment.comments.build, submit: 'Reply', autofocus: true %></div>
           </div>
         <% end %>
       <% end %>
     </div>
   <% end %>
+  
   <% if show_page %>
     <div class='new-comment'>
-      <% if current_user.avatar.attached? %>
-        <%= image_tag url_for(current_user.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'comment-avatar' %>
-      <% else %>
-        <div class='comment-profile-picture'></div>
-      <% end %>
+      <a href=<%= user_path(current_user) %>>
+        <% if current_user.avatar.attached? %>
+          <%= image_tag url_for(current_user.avatar.variant(resize_to_fill: [50, 50, { gravity: 'Center' }])), class: 'comment-avatar' %>
+        <% else %>
+          <div class='comment-profile-picture'></div>
+        <% end %>
+      </a>
       <div class='new-comment-form'><%= render 'comments/form', comment: post.comments.build, submit: 'Comment', autofocus: autofocus %></div>
     </div>
   <% end %>
