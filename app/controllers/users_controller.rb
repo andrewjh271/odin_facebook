@@ -26,7 +26,8 @@ class UsersController < ApplicationController
   end
 
   def likes
-    liked_posts_ids = Like.where(user_id: params[:user_id], likable_type: "Post")
+    @user = User.find(params[:user_id])
+    liked_posts_ids = Like.where(user_id: @user.id, likable_type: "Post")
                           .pluck(:likable_id)
     @posts = Post.where('id IN (?)', liked_posts_ids)
                  .with_attached_photo
