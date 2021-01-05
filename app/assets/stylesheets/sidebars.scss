@@ -9,6 +9,11 @@ $delightful-blue: #4267b2;
   padding-top: 3vh;
 }
 
+#profile_sidebar a:hover {
+  text-decoration: none;
+  color: white;
+}
+
 .sidebar-avatar {
   height: 180px;
   width: 180px;
@@ -51,7 +56,7 @@ $delightful-blue: #4267b2;
 }
 
 .profile-row:hover {
-  background-color: #c2d9ec;
+  background-color: #98c6ec;
   cursor: pointer;
 }
 
