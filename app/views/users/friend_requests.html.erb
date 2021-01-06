@@ -4,16 +4,8 @@
   <% @invitations.each do |invitation| %>
     <div class='friend-full-row'>
       <div class='friend-row'>
-        <a href=<%= user_path(invitation.requester) %>>
-          <% if invitation.requester.avatar.attached? %>
-              <%= image_tag url_for(invitation.requester.avatar.variant(resize_to_fill: [50, 50,
-                                                        { gravity: 'Center' }])),
-                                                        class: 'friend-list-avatar' %>
-          <% else %>
-              <div class='friend-list-blank-avatar'></div>
-          <% end %>
-          <%= link_to invitation.requester.name, user_path(invitation.requester) %>
-        </a>
+        <%= avatar_thumbnail(invitation.requester, 'friend-list-avatar') %>
+        <%= link_to invitation.requester.name, user_path(invitation.requester) %>
       </div>
       <div>
         <%= link_to delete_friend_request_path(invitation),

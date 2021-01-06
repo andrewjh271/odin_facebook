@@ -24,7 +24,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
   after_commit :ensure_avatar, unless: :seed_user?
-  after_create :create_friend_invitations, unless: :seed_user?
+  # after_create :create_friend_invitations, unless: :seed_user?
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
