@@ -21,6 +21,14 @@
   background-color: #f0f2f5;
 }
 
+h3 {
+  font-family: 'Xanh Mono', monospace;
+}
+
+h4 {
+  font-family: 'Xanh Mono', monospace;
+}
+
 /* header */
 
 header {
@@ -62,9 +70,14 @@ header {
 
 .header-item {
   color: white;
-  font-family: 'Nanum Myeongjo', serif;
+  font-family: 'Xanh Mono', monospace;
   font-weight: 700;
   letter-spacing: 1px;
+}
+
+.fa-scroll {
+  font-size: 18px;
+  transform: rotate(-3deg);
 }
 
 .header-item:hover {
@@ -102,6 +115,9 @@ sup {
 .flash-container {
   background-color: #7c7aff4f;
   height: 4vh;
+  position: sticky;
+  top: 6vh;
+  z-index: 1;
 }
 
 #notice {

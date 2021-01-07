@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OdinFacebook</title>
+    <title>SocialScrolls</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://kit.fontawesome.com/07b0558508.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Xanh+Mono&display=swap" rel="stylesheet">
+    <%= favicon_link_tag asset_path("favicon.ico") %>
+
   </head>
 
   <body>
     <header>
       <div class='header-left'>
         <button class='header-button border-right border-left'>
-          <%= link_to 'Home', root_path, class: 'header-item' %>
+          <%= link_to root_path, class: 'header-item' do %>
+            <i class="fas fa-scroll"></i>
+            <span>Social Scrolls</span>
+          <% end %>
         </button><!--
         --><button class='header-button border-right'>
           <%= link_to 'About', about_path, class: 'header-item' %>
