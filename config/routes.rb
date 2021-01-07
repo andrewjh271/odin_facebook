@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root 'posts#index'
   
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations' }
   resource :user, only: :show, as: :profile
 
   resources :users, only: :show do
