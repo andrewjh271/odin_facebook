@@ -19,15 +19,36 @@
 #  website                :string
 #  birthday               :date
 #
+require 'open-uri'
+
 class User < ApplicationRecord
+
+  def self.from_omniauth(auth)
+    downloaded_image = URI.open(auth.info.image) if auth.info.image
+
+    oauth_user = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.name = auth.info.name
+      if downloaded_image
+        user.avatar.attach(io: downloaded_image,
+                           filename: "image-#{Time.now.strftime("%s%L")}",
+                           content_type: downloaded_image.content_type)
+      end
+    end
+    downloaded_image.close if downloaded_image
+    oauth_user
+  end
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
-  after_commit :ensure_avatar, unless: :seed_user?
+  # after_commit :ensure_avatar, unless: :seed_user?
   # after_create :create_friend_invitations, unless: :seed_user?
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: %i[facebook]
 
   validates :name, :email, presence: true
 
