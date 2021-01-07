@@ -25,7 +25,6 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     downloaded_image = URI.open(auth.info.image) if auth.info.image
-
     oauth_user = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
@@ -48,7 +47,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :omniauthable, omniauth_providers: %i[facebook]
+         :omniauthable, omniauth_providers: %i[facebook github]
 
   validates :name, :email, presence: true
 

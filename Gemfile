@@ -38,6 +38,7 @@ gem 'cloudinary', '~> 1.18', '>= 1.18.1'
 gem 'image_processing', '~> 1.12', '>= 1.12.1'
 
 gem 'omniauth-facebook', '~> 8.0'
+gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

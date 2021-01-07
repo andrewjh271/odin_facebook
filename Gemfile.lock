@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/omniauth/omniauth-github.git
+  revision: 5afe8aee3baccd84ce6f265a3e62efbb55ac14b9
+  branch: master
+  specs:
+    omniauth-github (1.4.0)
+      omniauth (~> 1.5)
+      omniauth-oauth2 (>= 1.4.0, < 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -365,6 +374,7 @@ DEPENDENCIES
   letter_opener (~> 1.7)
   listen (~> 3.2)
   omniauth-facebook (~> 8.0)
+  omniauth-github!
   pg (>= 0.18, < 2.0)
   pry-rails (~> 0.3.9)
   puma (~> 4.1)
