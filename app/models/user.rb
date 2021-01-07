@@ -39,6 +39,16 @@ class User < ApplicationRecord
     oauth_user
   end
 
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"] ||
+         data = session["devise.github_data"]["info"]
+        user.name = data["name"] if user.name.blank?
+        user.email = data["email"] if user.email.blank?
+      end
+    end
+  end
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
