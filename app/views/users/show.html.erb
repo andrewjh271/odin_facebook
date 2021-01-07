@@ -76,10 +76,10 @@
 
 <hr>
 
-<%= "#{@user.name}'s top friends" %>
+<span><%= "#{@user.name}'s friends" %></span>
 <%= link_to '(see all)', user_friends_path(@user) %>
 <div class='friends-container'>
-  <% @user.friends.with_attached_avatar.limit(8).each do |friend| %>
+  <% @user.friends.with_attached_avatar.limit(8).order("RANDOM()").each do |friend| %>
     <div class='friend-row'>
       <%= avatar_thumbnail(friend, 'friend-list-avatar') %>
       <%= link_to friend.name, user_path(friend) %>
