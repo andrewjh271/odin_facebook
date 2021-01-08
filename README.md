@@ -66,3 +66,11 @@ end
 ```
 
 Cannot be inside `where(provider: auth.provider, uid: auth.uid).first_or_create do |user|` block because the `io` file needs to be open at the end of the block. Things seemed to work ok if I just left the File open, but I wanted to ensure I closed it once it was used
+
+
+
+
+
+###### Mail
+
+I briefly tried to use SendGrid again for this project — I got further than I ever did when I spent much more time on it for my Flight Booker project, but when I tried to setup the first step they recommended after logging into my app's account, Single Sender Verification, it shut me out of the account and said I was unauthorized to access SendGrid without telling me why.

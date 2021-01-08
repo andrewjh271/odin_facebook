@@ -27,4 +27,8 @@ class ApplicationController < ActionController::Base
       friend_request.save
     end
   end
+
+  def send_welcome_email
+    UserMailer.with(user: @user).welcome_email.deliver_now
+  end
 end

@@ -1,7 +1,7 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # See https://github.com/omniauth/omniauth/wiki/FAQ#rails-session-is-clobbered-after-callback-on-developer-strategy
   skip_before_action :verify_authenticity_token, only: [:facebook, :github]
-  after_action :ensure_avatar, :create_friend_invitations, only: [:facebook, :github]
+  after_action :ensure_avatar, :create_friend_invitations, :send_welcome_email, only: [:facebook, :github]
 
   def facebook
     @user = User.from_omniauth(request.env["omniauth.auth"])

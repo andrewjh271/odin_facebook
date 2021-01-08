@@ -109,4 +109,21 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.mail.yahoo.com',
+    port: 587,
+    # domain: 'yahoo.com',
+    authentication: :login,
+    # enable_starttls_auto: true,
+    user_name: ENV['YAHOO_USERNAME'],
+    password: ENV['YAHOO_PASSWORD']
+  }
+  # Also worked without adding 'authentication: :login'
+
+  config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.default_url_options = { host: 'socialscrolls.herokuapp.com', protocol: 'https' }
 end
