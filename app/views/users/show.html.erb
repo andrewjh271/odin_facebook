@@ -8,36 +8,7 @@
   </div>
 
   <div class='friendship-indicator'>
-    <% if current_user == @user %>
-      <%# avoid checking anything else %>
-    <% elsif current_user.friends.include?(@user) %>
-        <%= button_to destroy_friendship_path,
-                      method: :delete,
-                      data: { confirm: "Really unfriend #{@user.name}?" },
-                      params: { friend_a_id: @user.id, friend_b_id: current_user.id },
-                      class: 'unfriend show-page-unfriend' do %>
-          <i class="fas fa-user-minus"></i>
-        <% end %>
-        <i class="fas fa-user-friends"></i>
-    <% elsif invitation = current_user.friend_invitations.find_by(requester: @user) %>
-      <%= link_to delete_friend_request_path(invitation),
-                  method: :delete,
-                  class: 'delete-request delete-request-show',
-                  data: { confirm: "Delete #{invitation.requester.name}'s friend request?" } do %>
-        <i class="fas fa-user-times"></i>
-      <% end %>
-      <%= link_to confirm_friend_request_path(invitation),
-                  method: :post,
-                  class: 'confirm-request' do %>
-        <i class="fas fa-user-check"></i>
-      <% end %>
-    <% elsif current_user.requested_friends.include?(@user) %>
-      <i class="far fa-clock"></i>
-    <% else %>
-      <%= button_to friend_requests_path, method: :post, class: 'add-friend', params: { recipient_id: @user.id } do %>
-        <i class="fas fa-user-plus"></i>
-      <% end %>
-    <% end %>
+    <%= friendship_indicator(@user) %>
   </div>
 
   <div class='basic-info'>
