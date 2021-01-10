@@ -55,6 +55,7 @@ header {
   background-color: transparent;
   border: none;
   height: 100%;
+  margin: 0;
   padding: 1vw;
   font-size: 15px;
 }
@@ -75,13 +76,58 @@ header {
   letter-spacing: 1px;
 }
 
+.header-item:hover {
+  text-decoration: none;
+}
+
+.search-form input {
+  width: 110px;
+  height: 4vh;
+  margin: 1vh 1vw;
+  padding-left: 12px;
+  padding-right: 30px;
+  box-sizing: border-box;
+  font-family: 'Xanh Mono', monospace;
+  font-size: 15px;
+  border: none;
+  border-radius: 116px;
+  background-color: #7ba1d0;
+  transition: 600ms;
+}
+
+.search-form input:focus {
+  outline: none;
+  width: 16vw;
+  transition: 600ms;
+  background-color: #d9eff76e;  
+}
+
+.search-button {
+  background: 0;
+  border: 0;
+  padding: 0;
+  font-size: 2vh;
+  position: absolute;
+  transform: translate(-37px, 1.9vh);
+  color: white;
+}
+
+.search-button:hover {
+  color: gray;
+  cursor: pointer;
+}
+
+.search-button:focus {
+  outline: none;
+}
+
+.search-form ::placeholder {
+  /* color: #bbc5d4; */
+  color: white;
+}
 .fa-scroll {
   font-size: 18px;
   transform: rotate(-3deg);
-}
-
-.header-item:hover {
-  text-decoration: none;
 }
 
 .border-right {

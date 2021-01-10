@@ -82,7 +82,7 @@ $delightful-blue: #4267b2;
 .add-friend {
   background: none;
   border: none;
-  color: #3737b9;
+  color: $delightful-blue;
 }
 
 .add-friend:hover {
@@ -107,25 +107,28 @@ h3 {
 .unfriend {
   background: none;
   border: none;
-  color: #3737b9;
+  color: #848484;
+  font-size: 12px;
 }
 
 .unfriend:hover {
   cursor: pointer;
-  color: #d62465;
+  color: #d62424;
 }
 
 .unfriend:focus {
   outline: none;
 }
 
-.show-page-unfriend {
-  color: #848484;
-  font-size: 11px;
-}
-
 .fa-user-friends {
   color: $delightful-blue;
+  padding-right: 6px;
+  font-size: 14px;
+  transform: translateY(1px);
+}
+
+.confirm-request {
+  padding-right: 6px;
 }
 
 .confirm-request:hover {
