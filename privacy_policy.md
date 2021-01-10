@@ -1,6 +1,6 @@
 ### Social Scrolls Privacy Policy
 
-Last updated: 01/08/2021
+Last updated: *01/09/2021*
 
 Social Scrolls ("us", "we", or "our") operates [https://socialscrolls.herokuapp.com/](https://socialscrolls.herokuapp.com/) (the "Site"). This page informs you of our policies regarding the collection, use and disclosure of Personal Information we receive from users of the Site.
 
@@ -18,7 +18,7 @@ This Log Data may include information such as your computer's Internet Protocol 
 
 ###### **Communications**
 
-We may use your Personal Information to contact you with a sign up confirmation email.
+We may use your Personal Information to contact you with important emails regarding your account.
 
 ###### **Cookies**
 
@@ -30,10 +30,18 @@ Like many sites, we use "cookies" to collect information. You can instruct your 
 
 The security of your Personal Information is important to us, but remember that no method of transmission over the Internet, or method of electronic storage, is 100% secure. While we strive to use commercially acceptable means to protect your Personal Information, we cannot guarantee its absolute security.
 
+###### Changes To This Privacy Policy
+
+This Privacy Policy is effective as of *01/09/2021* and will remain in effect except with respect to any changes in its provisions in the future, which will be in effect immediately after being posted on this page.
+
+We reserve the right to update or change our Privacy Policy at any time and you should check this Privacy Policy periodically. Your continued use of the Service after we post any modifications to the Privacy Policy on this page will constitute your acknowledgment of the modifications and your consent to abide and be bound by the modified Privacy Policy.
+
+If we make any material changes to this Privacy Policy, we will notify you either through the email address you have provided us, or by placing a prominent notice on our website.
+
 ###### **Data Deletion**
 
-To delete your account and all associated data simply login, visit [https://socialscrolls.herokuapp.com/users/edit](https://socialscrolls.herokuapp.com/users/edit), and select *Cancel my account*.
+To delete your account and all associated data simply login, visit [https://socialscrolls.herokuapp.com/users/edit](https://socialscrolls.herokuapp.com/users/edit), and select *Delete Account*.
 
 ###### **Contact Us**
 
-If you have any questions about this Privacy Policy, please contact us at [hayhurst.andrew@gmail.com](mailto:hayhurst.andrew@gmail.com)
+If you have any questions about this Privacy Policy, please contact us at [hayhurst.andrew@gmail.com](mailto:hayhurst.andrew@gmail.com).
