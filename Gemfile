@@ -22,9 +22,6 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
@@ -35,6 +32,8 @@ gem 'figaro', '~> 1.2'
 gem 'active_record_union', '~> 1.3'
 
 gem 'cloudinary', '~> 1.18', '>= 1.18.1'
+
+# Use Active Storage variant
 gem 'image_processing', '~> 1.12', '>= 1.12.1'
 
 gem 'omniauth-facebook', '~> 8.0'

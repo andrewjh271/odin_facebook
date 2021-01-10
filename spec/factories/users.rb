@@ -18,6 +18,8 @@
 #  occupation             :string
 #  website                :string
 #  birthday               :date
+#  provider               :string
+#  uid                    :string
 #
 FactoryBot.define do
   factory :user do
