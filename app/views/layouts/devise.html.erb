@@ -1,7 +1,9 @@
 <% content_for :stylesheets do %>
     #profile_sidebar {display: none;}
     #friends-sidebar {display: none;}
-    #main { margin-left: 10% }
+    .main { margin-left: auto; margin-right: auto; }
 <% end %>
+
+<%= content_for :main_wrapper, 'devise-wrapper' %>
 
 <%= render :template => "layouts/application" %>

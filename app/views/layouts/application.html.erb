@@ -71,7 +71,7 @@
     <div class='page-body'>
       <style> <%= yield :stylesheets %> </style>
       <%= render 'layouts/profile_sidebar' if user_signed_in? %>
-      <div id='main'>
+      <div class='main <%= yield :main_wrapper %>'>
         <%= yield %>
       </div>
       <%= render 'layouts/friends_sidebar' if user_signed_in? %>
