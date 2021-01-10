@@ -1,0 +1,20 @@
+<h3>Search results for <i><%= @query %></i></h3>
+
+<div class='friends-container'>
+  <% @users.each do |user| %>
+    <div class='friend-full-row'>
+      <div class='friend-row'>
+        <%= avatar_thumbnail(user, 'friend-list-avatar') %>
+        <%= link_to user.name, user %>
+      </div>
+      <div class='friendship-indicator'>
+        <%= friendship_indicator(user) %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<br>
+
+<% @posts.each do |post| %>
+  <%= render post %>
+<% end %>

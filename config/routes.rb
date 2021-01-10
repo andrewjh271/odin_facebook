@@ -41,5 +41,6 @@ Rails.application.routes.draw do
 
   delete 'unfriend', to: 'friendships#destroy', as: 'destroy_friendship'
 
-  get 'about', to: 'application#about'
+  get 'about', to: 'static_pages#about'
+  get 'search', to: 'static_pages#search'
 end

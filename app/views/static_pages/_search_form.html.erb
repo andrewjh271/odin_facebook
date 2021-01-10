@@ -1,0 +1,6 @@
+<%= form_with(url: search_path, method: :get, local: true) do |f| %>
+  <%= f.text_field :query, placeholder: "Search" %>
+  <%= button_tag type: 'submit', class: 'search-button' do %>
+    <ion-icon name="search-sharp"></ion-icon>
+  <% end %>
+<% end %>
