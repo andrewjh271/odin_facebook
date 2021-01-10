@@ -1,4 +1,5 @@
 $delightful-blue: #4267b2;
+$edit-profile-width: 50%;
 
 #profile-summary {
   display: grid;
@@ -154,7 +155,9 @@ h3 {
 
 .edit-profile-avatar {
   margin-top: 1vh;
-  width: 100%;
+  display: block;
+  max-height: 70vh;
+  width: $edit-profile-width;
 }
 
 .edit-profile-container input:focus {
@@ -182,15 +185,26 @@ h3 {
   color: white;
 }
 
-.profile-text-fields input {
-  box-sizing: content-box;
-  border: 1px solid gray;
+.profile-edit-fields input, .profile-edit-fields select {
+  box-sizing: border-box;
+  border: 0;
+  width: $edit-profile-width;
+  margin: 3px 0;
+  padding: 6px;
+  font-family: 'Xanh Mono', monospace;
+  font-size: 14px;
   line-height: 17px;
-  width: 30%;
+  background-color: #cedae8;
+  transition: 300ms;
 }
 
-.profile-text-fields input:focus {
+.profile-edit-fields input:focus {
   outline: none;
-  border: 1px solid gray;
-  background-color: lightblue;
+  transition: 600ms;
+  background-color: #9d9fe66e;
 }
+
+.profile-edit-fields select {
+  width: calc(#{$edit-profile-width / 2} - 2px);
+}
+
