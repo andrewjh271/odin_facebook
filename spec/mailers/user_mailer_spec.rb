@@ -11,7 +11,7 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   it "renders the body" do
-    string = "You have succesfully signed up with <i>#{user.email}</i>"
+    string = "You have succesfully signed up with #{user.email}."
     expect(mail.body.encoded).to match(string)
   end
 
@@ -25,5 +25,9 @@ RSpec.describe UserMailer, type: :mailer do
   it 'welcome_email is sent to the right user' do
       mail.deliver_now
       expect(ActionMailer::Base.deliveries.last.to[0]).to eq user.email
+  end
+
+  it "renders the headers" do
+    expect(mail.content_type).to start_with('multipart/alternative') #html / text support
   end
 end
