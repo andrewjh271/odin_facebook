@@ -58,8 +58,8 @@ ActiveRecord::Base.transaction do
   ActiveRecord::Base.connection.reset_pk_sequence!('friend_requests')
   ActiveRecord::Base.connection.reset_pk_sequence!('comments')
 
-  50.times do |i|
-    first_name = i <= 27 ? Faker::Name.female_first_name : Faker::Name.male_first_name
+  60.times do |i|
+    first_name = i <= 32 ? Faker::Name.female_first_name : Faker::Name.male_first_name
     name = "#{first_name} #{Faker::Name.last_name}"
     @users << User.create!(user_params(name))
   end
@@ -78,13 +78,13 @@ ActiveRecord::Base.transaction do
 
   # create posts
   posts = []
-  250.times do |i|
+  180.times do |i|
     date = Faker::Date.between(from: 2.years.ago, to: Date.today)
     body = case i
-           when 0..30 then Faker::GreekPhilosophers.quote
-           when 31..50 then Faker::Quotes::Shakespeare.hamlet_quote
-           when 51..70 then Faker::Quotes::Shakespeare.as_you_like_it_quote
-           when 71..90 then Faker::Quotes::Shakespeare.king_richard_iii_quote
+           when 0..36 then Faker::GreekPhilosophers.quote
+           when 37..72 then Faker::Quotes::Shakespeare.hamlet_quote
+           when 73..108 then Faker::Quotes::Shakespeare.as_you_like_it_quote
+           when 109..144 then Faker::Quotes::Shakespeare.king_richard_iii_quote
            else Faker::Quotes::Shakespeare.romeo_and_juliet_quote
            end
 
@@ -96,17 +96,23 @@ ActiveRecord::Base.transaction do
     )
   end
 
-  sample_post = Post.create!(
-    body: Faker::GreekPhilosophers.quote,
-    author: sample_user
-  )
-
-  posts << sample_post
+  # extra posts for users who will get photos (index in @users[] is their ID - 1)
+  [0, 6, 10, 21, 23, 28, 34, 36, 38, 44, 54, 60].each do |index|
+    10.times do
+      date = Faker::Date.between(from: 2.years.ago, to: Date.today)
+      posts << Post.create!(
+        body: Faker::Quote.famous_last_words,
+        author: @users[index],
+        created_at: date,
+        updated_at: date
+      )
+    end
+  end
 
   # create comments
   comments = []
   posts.each do |post|
-    rand(6).times do
+    rand(5).times do
       user = @users[rand(@users.length)]
       date = Faker::Date.between(from: post.created_at, to: Date.today)
       body = Faker::Quote.jack_handey
@@ -136,26 +142,26 @@ ActiveRecord::Base.transaction do
   # create likes
   @users.length.times do |i|
     random_likable_reset!(posts.length)
-    rand(posts.length / 4).times { Like.create!(likable: posts[random_likable], user: @users[i]) }
+    rand(posts.length / 7).times { Like.create!(likable: posts[random_likable], user: @users[i]) }
 
     random_likable_reset!(comments.length)
     rand(comments.length / 12).times { Like.create!(likable: comments[random_likable], user: @users[i]) }
 
     random_likable_reset!(nested_comments.length)
-    rand(nested_comments.length / 19).times { Like.create!(likable: nested_comments[random_likable], user: @users[i]) }
+    rand(nested_comments.length / 24).times { Like.create!(likable: nested_comments[random_likable], user: @users[i]) }
   end
 
   # create friendships
   @users.length.times do |i|
     user_indices = ((i + 1)...@users.length).to_a.shuffle
-    (user_indices.length / 2).times do
+    (user_indices.length / 3).times do
       Friendship.create!(friend_a: @users[i], friend_b: @users[(user_indices.pop)])
     end
   end
 
   # create friend requests for Odin
-  sample_user.no_contacts.take(15).each_with_index do |user, i|
-    if i < 10
+  sample_user.no_contacts.take(20).each_with_index do |user, i|
+    if i < 13
       FriendRequest.create!(requester: user, recipient: sample_user)
     else
       FriendRequest.create!(requester: sample_user, recipient: user)

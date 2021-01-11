@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  REQUESTING_FRIENDS_IDS = [1, 5, 8, 24, 25, 26, 31, 39, 48, 50]
+  REQUESTING_FRIENDS_IDS = [1, 7, 11, 22, 24, 29, 35, 37, 39, 45, 55, 61]
 
   def ensure_avatar
     @user.set_avatar! unless @user.avatar.attached?
