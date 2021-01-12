@@ -9,11 +9,6 @@ RSpec.describe UsersController, type: :controller do
       get :show, params: { id: user.id }
       expect(response).to render_template(:show)
     end
-
-    it 'works with no id given' do
-      get :show
-      expect(response).to render_template(:show)
-    end
   end
 
   describe 'GET #posts' do

@@ -62,7 +62,7 @@ class UsersController < ApplicationController
 
   def update_profile
     current_user.update(profile_params)
-    redirect_to profile_url
+    redirect_to current_user
   end
 
   private
