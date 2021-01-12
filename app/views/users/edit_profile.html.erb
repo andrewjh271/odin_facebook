@@ -6,7 +6,7 @@
     <%= form.file_field :avatar, direct_upload: true %>
 
     <% if @user.avatar.attached? %>
-      <%= image_tag url_for(@user.avatar), class: 'edit-profile-avatar' %>
+      <%= image_tag @user.avatar, class: 'edit-profile-avatar' %>
     <% end %>
 
     <br>

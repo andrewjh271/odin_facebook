@@ -6,7 +6,7 @@ module ApplicationHelper
   def avatar_thumbnail(user, element_class)
     display =
       if user.avatar.attached?
-        image_tag url_for(user.avatar.variant(resize_to_fill: [80, 80, { gravity: 'Center' }])), class: element_class
+        image_tag user.avatar.variant(resize_to_fill: [80, 80, { gravity: 'Center' }]), class: element_class
       else
         "<div class='#{element_class}'></div>"
       end
@@ -16,7 +16,7 @@ module ApplicationHelper
   def avatar(user, element_class)
     display =
       if user.avatar.attached?
-        image_tag url_for(user.avatar), class: element_class
+        image_tag user.avatar, class: element_class
       else
         "<div class='#{element_class}'></div>"
       end

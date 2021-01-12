@@ -7,7 +7,9 @@
   <div class='body'>
     <div class='body-text'><%= post.body %></div>
     <% if post.photo.attached? %>
-      <%= image_tag url_for(post.photo), class: 'post-photo' %>
+      <%= link_to post.photo do %>
+        <%= image_tag post.photo, class: 'post-photo' %>
+      <% end %>
     <% end %>
   </div>
   <div class='author'><%= link_to post.author.name, user_url(post.author) %></div>
