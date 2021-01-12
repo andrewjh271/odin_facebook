@@ -5,8 +5,9 @@ $delightful-blue: #4267b2;
 #photos-container {
   /* Prevent vertical gaps */
   line-height: 0;
-  column-count:         3;
-  column-gap:           4px;
+  column-count: 3;
+  column-gap: 4px;
+  margin-bottom: 4px;
 }
 
 @media (max-width: 900px) {
