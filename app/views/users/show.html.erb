@@ -83,14 +83,16 @@
 
 <span><%= "#{@user.name}'s friends" %></span>
 <%= link_to '(see all)', user_friends_path(@user) %>
-<div class='friends-container'>
-  <% @user.friends.with_attached_avatar.limit(8).order("RANDOM()").each do |friend| %>
-    <div class='friend-row'>
-      <%= avatar_thumbnail(friend, 'friend-list-avatar') %>
-      <%= link_to friend.name, user_path(friend) %>
-    </div>
-  <% end %>
-</div>
+<% if @user.friends.exists? %>
+  <div class='friends-container'>
+    <% @user.friends.with_attached_avatar.limit(8).order("RANDOM()").each do |friend| %>
+      <div class='friend-row'>
+        <%= avatar_thumbnail(friend, 'friend-list-avatar') %>
+        <%= link_to friend.name, user_path(friend) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 
 <hr>
 <%= link_to "#{@user.name}'s Liked Posts", user_likes_path(@user) %>
