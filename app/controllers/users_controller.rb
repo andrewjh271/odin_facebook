@@ -36,15 +36,10 @@ class UsersController < ApplicationController
   end
 
   def friends
-    if params[:user_id]
-      @friends = User.find(params[:user_id])
-                     .friends.with_attached_avatar
-                     .order(:name)
-    else
-      @friends = current_user.friends
-                             .with_attached_avatar
-                             .order(:name)
-    end
+    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
+    @friends = @user.friends
+                    .with_attached_avatar
+                    .order(:name)
   end
 
   def friend_requests

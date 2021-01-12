@@ -1,4 +1,4 @@
-<h3>Friends:</h3>
+<h3><%= @user.name %>'s Friends</h3>
 
 <div class='friends-container'>
   <% @friends.each do |friend| %>
@@ -7,13 +7,9 @@
         <%= avatar_thumbnail(friend, 'friend-list-avatar') %>
         <%= link_to friend.name, user_path(friend) %>
       </div>
-      <%= button_to destroy_friendship_path,
-                    method: :delete,
-                    data: { confirm: "Really unfriend #{friend.name}?" },
-                    params: { friend_a_id: friend.id, friend_b_id: current_user.id },
-                    class: 'unfriend' do %>
-        <i class="fas fa-user-minus"></i>
-      <% end %>
+      <div class='friendship-indicator'>
+        <%= friendship_indicator(friend) %>
+      </div>
     </div>
   <% end %>
 </div>
