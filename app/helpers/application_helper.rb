@@ -1,6 +1,10 @@
 module ApplicationHelper
   def valid_url?(url)
-    url.match?(/^(http)s?:\/\//)
+    url.match?(/^https?:\/\//)
+  end
+
+  def strip_protocol(url)
+    url.match(/https?:\/\/(.*)/)[1]
   end
 
   def avatar_thumbnail(user, element_class)

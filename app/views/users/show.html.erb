@@ -47,7 +47,7 @@
     <% unless @user.website.blank? %>
       <div class='info-row'>
         <ion-icon name="globe-outline"></ion-icon>
-        <%= valid_url?(@user.website) ? (link_to nil, @user.website) : @user.website %>
+        <%= valid_url?(@user.website) ? (link_to strip_protocol(@user.website), @user.website, target: :_blank) : @user.website %>
       </div>
     <% end %>
   
