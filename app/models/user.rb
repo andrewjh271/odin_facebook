@@ -26,19 +26,17 @@ require 'open-uri'
 class User < ApplicationRecord
 
   def self.from_omniauth(auth)
-    downloaded_image = URI.open(auth.info.image) if auth.info.image
-    oauth_user = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    oauth_user = where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.name = auth.info.name
-      if downloaded_image
+      if auth.info.image
+        downloaded_image = URI.open(auth.info.image)
         user.avatar.attach(io: downloaded_image,
                            filename: "image-#{Time.now.strftime("%s%L")}",
                            content_type: downloaded_image.content_type)
       end
     end
-    downloaded_image.close if downloaded_image
-    oauth_user
   end
 
   def self.new_with_session(params, session)
