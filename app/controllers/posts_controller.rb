@@ -18,6 +18,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    # not sure that this preloading is effective for a single record
     @post = Post.includes(
                    :likes,
                    comments: [
