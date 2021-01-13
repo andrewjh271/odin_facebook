@@ -38,7 +38,7 @@ Some helpful links:
 - This page in the [docs](https://edgeapi.rubyonrails.org/classes/ActiveStorage/Attached/One.html#method-i-attach) clarify what happens when attaching persisted vs unpersisted records.
 
 
-I encountered some difficulties attaching an image from a file or URL rather than a user upload. `User::from_omniauth`, for instance, involves some gymnastics to attach a file without leaving it open:
+Attaching a file by letting the user upload one in a form worked immediately, but I encountered some difficulties attaching an image from a file or URL. This block in `User::from_omniauth`, for instance, would throw an `IOError: closed stream` because the `io` file needs to still be open at the end of the `first_or_create` block (and the `File.open` block closes the file):
 
 ```ruby
 where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -48,7 +48,9 @@ where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
 end
 ```
 
-throws a `IOError: closed stream` because the `io` file needs to still be open at the end of the `first_or_create` block. Things seemed to work ok if I just left the file open and didn't use a block for it, but I wanted to ensure I closed it once it was used. I encountered this error in other places as well (attaching default avatars, testing...), and this comment from a [Rails Issue](https://github.com/rails/rails/issues/38185#issuecomment-572848893) explains what's going on.
+I originally used a slightly verbose workaround that worked while still closing the file, but this was no longer possible when I needed to switch to `first_or_initialize` and not save a new record until back in the `Users::OmniauthCallbacksController`. Many examples on Stack Overflow simply open the file without closing it, and that seems to work ok so is my current solution. I am slightly uneasy about it, but at least the [docs](https://ruby-doc.org/core-2.7.1/IO.html#method-i-close) say "I/O streams are automatically closed when they are claimed by the garbage collector."
+
+I encountered this error in other places as well (attaching default avatars, testing...). This comment from a [Rails Issue](https://github.com/rails/rails/issues/38185#issuecomment-572848893) briefly explains what's going on.
 
 I wanted to be mindful when I created variants of images vs just using CSS to resize them, since the number of transactions on Cloudinary counts against the free allotment. I only create variants for the avatar thumbnails, since many of those can appear on a page at once and the server should not be retrieving full sized images for each one. I experimented with using Cloudinary's `cl_image_tag` to create the image variants, but ended up using Active Storage's `variant`, which uses the `image-processing` gem.
 
