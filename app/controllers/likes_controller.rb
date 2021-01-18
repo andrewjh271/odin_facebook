@@ -22,12 +22,15 @@ class LikesController < ApplicationController
   end
 
   def referer_url_with_anchor(likable)
+    # anchor cannot be directly added to request.referer
     anchor = "#{likable.class.to_s.downcase}-#{likable.id}"
     case request.referer
+    when /users\/\d+\/posts/ then user_posts_url(likable.author, anchor: anchor)
+    when /likes/ then request.referer
+    when /users\/\d/ then user_url(likable.author, anchor: anchor)
     when /posts\/\d/ then post_url(likable.get_post_or_photo_id, anchor: anchor)
     when /posts/ then posts_url(anchor: anchor)
-    when /users\/\d+\/posts/ then user_posts_url(likable.author, anchor: anchor)
-    when /likes/ then user_likes_url(current_user.id)
+    when /search\?query=(?<query>\w+)/ then "#{search_url}?query=#{Regexp.last_match(:query)}##{anchor}"
     else root_url(anchor: anchor)
     end
   end
