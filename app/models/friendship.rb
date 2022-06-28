@@ -29,13 +29,13 @@ class Friendship < ApplicationRecord
   
   def no_self_referential_friendships
     if friend_a_id == friend_b_id
-      errors[:base] << 'No self referential friendships allowed'
+      errors.add(:base, :blank, message: 'No self referential friendships allowed')
     end
   end
 
   def no_duplicated_friendships
     if Friendship.exists?(friend_a_id: friend_b_id, friend_b_id: friend_a_id)
-      errors[:base] << 'This friendship already exists with the opposite references'
+      errors.add(:base, :blank, message: 'This friendship already exists with the opposite references')
     end
   end
 end

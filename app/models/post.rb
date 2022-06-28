@@ -49,7 +49,7 @@ class Post < ApplicationRecord
 
   def contains_text_or_photo
     unless !body.empty? || photo.attached?
-      errors[:base] << 'Post must contain a text and/or photo.'
+      errors.add(:base, :blank, message: 'Post must contain a text and/or photo.')
     end
   end
 end

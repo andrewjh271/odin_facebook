@@ -21,19 +21,19 @@ class FriendRequest < ApplicationRecord
 
   def no_self_referential_friend_requests
     if requester_id == recipient_id
-      errors[:recipient_id] << 'No self referential friend requests allowed.'
+      errors.add(:recipient_id, :blank, message: 'No self referential friend requests allowed.')
     end
   end
 
   def request_in_one_direction_only
     if FriendRequest.exists?(requester_id: recipient_id, recipient_id: requester_id)
-      errors[:recipient_id] << 'There is a pending request from this user.'
+      errors.add(:recipient_id, :blank, message: 'There is a pending request from this user.')
     end
   end
 
   def no_requests_to_current_friends
     if requester.friends.any? { |friend| friend.id == recipient.id }
-      errors[:recipient_id] << 'User is already friends with this recipient.'
+      errors.add(:recipient_id, :blank, message: 'User is already friends with this recipient.')
     end
   end
 end
