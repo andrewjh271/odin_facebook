@@ -144,8 +144,8 @@ class User < ApplicationRecord
         .where.not(id: id)
   end
 
-  def set_avatar!
-    filename = "#{rand(15)}.png"
+  def set_avatar!(photo_number = rand(25))
+    filename = "#{photo_number}.png"
     path = Rails.root.join("app/assets/images/Default Avatars", filename)
     File.open(path) do |io|
       avatar.attach(io: io, filename: filename)
