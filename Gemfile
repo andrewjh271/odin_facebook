@@ -38,6 +38,7 @@ gem 'image_processing', '~> 1.12', '>= 1.12.2'
 
 gem 'omniauth-facebook', '~> 8.0'
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
+gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
