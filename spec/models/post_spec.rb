@@ -14,7 +14,7 @@ RSpec.describe Post, type: :model do
   
 
   describe 'validations' do
-    it 'should either a body or photo' do
+    it 'should contain a body and/or photo' do
       post = FactoryBot.build(:post, body: '')
       expect(post.valid?).to be false
     end

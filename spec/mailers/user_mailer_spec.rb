@@ -8,6 +8,7 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.subject).to eq("Welcome to Social Scrolls!, #{user.name}!")
       expect(mail.to).to eq([user.email])
       expect(mail.from).to eq(['andrewjh271@yahoo.com'])
+      expect(mail.content_type).to start_with('multipart/alternative') #html / text support
   end
 
   it "renders the body" do
@@ -25,9 +26,5 @@ RSpec.describe UserMailer, type: :mailer do
   it 'welcome_email is sent to the right user' do
       mail.deliver_now
       expect(ActionMailer::Base.deliveries.last.to[0]).to eq user.email
-  end
-
-  it "renders the headers" do
-    expect(mail.content_type).to start_with('multipart/alternative') #html / text support
   end
 end
