@@ -73,9 +73,11 @@
 <% if posts.exists? %>
   <div id='photos-container'>
     <% posts.each do |post| %>
-      <%= link_to post_path(post) do %>
-        <%= image_tag post.photo %>
-      <% end %>
+      <div>
+        <%= link_to post_path(post) do %>
+          <%= image_tag post.photo %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 <% end %>
