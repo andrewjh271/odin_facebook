@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
 
   private
 
-  REQUESTING_FRIENDS_IDS = [1, 7, 11, 22, 24, 29, 35, 37, 39, 45, 55, 61]
+  REQUESTING_FRIENDS_IDS = [1, 7, 11, 22, 24, 29, 35, 37, 39, 45, 55, 530]
+  # based on existing production database: id 530 will fail based on db:seed
 
   def ensure_avatar
     @user.set_avatar! unless @user.avatar.attached?
@@ -20,7 +21,7 @@ class ApplicationController < ActionController::Base
   def create_friend_invitations
     REQUESTING_FRIENDS_IDS.each do |requester_id|
       friend_request = @user.friend_invitations.build(requester_id: requester_id)
-      friend_request.save
+      friend_request.save!
     end
   end
 

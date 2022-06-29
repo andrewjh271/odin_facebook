@@ -148,8 +148,9 @@ class User < ApplicationRecord
     filename = "#{photo_number}.png"
     path = Rails.root.join("app/assets/images/Default Avatars", filename)
     File.open(path) do |io|
-      avatar.attach(io: io, filename: filename)
+      self.avatar.attach(io: io, filename: filename, content_type: 'image/png')
     end
+    save!
   end
 
   def formatted_birthday
