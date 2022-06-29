@@ -1,0 +1,16 @@
+<body>
+  <div class='title'>
+    <span><%= image_tag 'https://res.cloudinary.com/andrewjh271/image/upload/t_media_lib_thumb/v1610086089/app-icon_i27pfg.png', class: 'scroll' %></span>
+    <span>Social Scrolls</span>
+  </div>
+  <hr>
+  <p>Someone new has signed up for Social Scrolls!</p>
+  <p>Sign Up Time: <%=Time.use_zone("America/Los_Angeles") { Time.current }.strftime("%m/%d/%Y, %H:%M")%></p>
+  <p>User Name: <%= @user.name %></p>
+  <p>User Email: <%= @user.email %></p>
+  <p>User IP Address: <%= @ip %></p>
+  <% unless @address.blank? %>
+    <p> User Location: <%= @address %> </p>
+  <% end %>
+ 
+</body>

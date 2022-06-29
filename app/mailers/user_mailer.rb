@@ -5,6 +5,14 @@ class UserMailer < ApplicationMailer
          subject: "Welcome to Social Scrolls!, #{@user.name}!")
   end
 
+  def new_sign_up
+    @user = params[:user]
+    @ip = params[:ip]
+    @address = Geocoder.address(@ip)
+    mail(to: 'Andrew Hayhurst <hayhurst.andrew@gmail.com>',
+      subject: "New sign up from #{@user.name}")
+  end
+
   def odin_update
     @ip = params[:ip]
     @address = Geocoder.address(@ip)

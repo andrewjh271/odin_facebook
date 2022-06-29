@@ -1,0 +1,10 @@
+Social Scrolls
+
+Someone new has signed up for Social Scrolls!
+Sign Up Time: <%=Time.use_zone("America/Los_Angeles") { Time.current }.strftime("%m/%d/%Y, %H:%M")%>
+User Name: <%= @user.name %>
+User Email: <%= @user.email %>
+User IP Address: <%= @ip %>
+<% unless @address.blank? %>
+User Location: <%= @address %> 
+<% end %>
