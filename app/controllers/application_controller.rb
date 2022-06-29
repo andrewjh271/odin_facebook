@@ -28,4 +28,12 @@ class ApplicationController < ActionController::Base
   def send_welcome_email
     UserMailer.with(user: @user).welcome_email.deliver_now
   end
+
+  def send_odin_delete_email
+    UserMailer.with(ip: request.remote_ip).odin_delete.deliver_now
+  end
+
+  def send_odin_update_email
+    UserMailer.with(ip: request.remote_ip).odin_update.deliver_now
+  end
 end

@@ -42,4 +42,6 @@ Rails.application.routes.draw do
 
   get 'about', to: 'static_pages#about'
   get 'search', to: 'static_pages#search'
+  get 'odin/invincible', to: 'static_pages#odin_invincible'
+  get 'odin/immutable', to: 'static_pages#odin_immutable'
 end

@@ -40,6 +40,8 @@ gem 'omniauth-facebook', '~> 8.0'
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.1'
 
+gem 'geocoder', '~> 1.3', '>= 1.3.7'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

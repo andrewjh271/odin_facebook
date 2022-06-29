@@ -21,7 +21,7 @@
   background-color: #f0f2f5;
 }
 
-h2, h3, h4 {
+h1, h2, h3, h4 {
   font-family: 'Xanh Mono', monospace;
   letter-spacing: 1px;
 }
@@ -321,4 +321,16 @@ a:visited {
   font-size: 18px;
   transform: translateY(1px);
   margin-right: 5px;
+}
+
+/* odin page */
+
+#odin-alert {
+  animation: color-change 1.8s infinite;
+}
+
+@keyframes color-change {
+  0% { color: #3e0000; }
+  50% { color: #ff1616; }
+  100% { color: #3e0000; }
 }

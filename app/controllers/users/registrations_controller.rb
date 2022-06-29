@@ -21,14 +21,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    if(current_user.email == 'odin@example.com')
+      send_odin_update_email
+      redirect_to odin_immutable_url
+    else
+      super
+    end
+  end
 
   # DELETE /resource
-  # def destroy
-  #   super
-  # end
+  def destroy
+    if(current_user.email == 'odin@example.com')
+      send_odin_delete_email
+      redirect_to odin_invincible_url
+    else
+      super
+    end
+  end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
