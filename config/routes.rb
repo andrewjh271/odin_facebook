@@ -44,4 +44,8 @@ Rails.application.routes.draw do
   get 'search', to: 'static_pages#search'
   get 'odin/invincible', to: 'static_pages#odin_invincible'
   get 'odin/immutable', to: 'static_pages#odin_immutable'
+
+  get '/404', to: 'errors#not_found'
+  get '/500', to: 'errors#internal_server'
+  get '/422', to: 'errors#unprocessable'
 end
