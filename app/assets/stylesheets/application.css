@@ -21,6 +21,11 @@
   background-color: #f0f2f5;
 }
 
+h1 {
+  font-size: 36px;
+  line-height: normal;
+}
+
 h1, h2, h3, h4 {
   font-family: 'Xanh Mono', monospace;
   letter-spacing: 1px;
