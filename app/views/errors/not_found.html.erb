@@ -1,7 +1,11 @@
 <% content_for :stylesheets do %>
     #profile_sidebar {display: none;}
     #friends-sidebar {display: none;}
-    .main { margin-left: 10%; margin-top: 5vh; }
+    .main { width: 100%; margin-left: 10%; margin-top: 5vh; }
 <% end %>
 
-<p>The page you were looking for doesn't exist (404)</p>
+<h1 id='odin-alert'>404 Error</h1>
+<p>The page you were looking for does not exist.</p>
+<p>If you think there is a mistake, please open an issue on <%=
+  link_to 'Github', 'https://github.com/andrewjh271/odin_facebook', target: :_blank %>.
+</p>
