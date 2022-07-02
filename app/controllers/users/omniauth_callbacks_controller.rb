@@ -36,9 +36,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
 
   def after_create_callbacks
-    ensure_avatar
     create_friend_invitations
+    ensure_avatar
     send_welcome_email
+    send_new_sign_up_email
   end
 
 end
