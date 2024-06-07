@@ -59,7 +59,8 @@
                 .where( active_storage_attachments: { id: nil} )
                 .order(created_at: :desc)
                 .limit(4)
-                .includes(:likes, comments: [:comments]) %>
+                .includes(:likes, comments: [:comments])
+                .with_attached_photo %>
 
 <%= link_to 'View all posts', user_posts_path(@user) %>
 
