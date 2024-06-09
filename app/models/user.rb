@@ -60,6 +60,7 @@ class User < ApplicationRecord
 
   has_many :posts,
     foreign_key: :author_id,
+    inverse_of: :author,
     dependent: :destroy
   
   has_many :likes,
@@ -67,10 +68,12 @@ class User < ApplicationRecord
 
   has_many :comments,
     foreign_key: :author_id,
+    inverse_of: :author,
     dependent: :destroy
 
   has_many :friend_requests,
     foreign_key: :requester_id,
+    inverse_of: :requester,
     dependent: :destroy
 
   has_many :requested_friends,
@@ -80,6 +83,7 @@ class User < ApplicationRecord
   has_many :friend_invitations,
     foreign_key: :recipient_id,
     class_name: :FriendRequest,
+    inverse_of: :recipient,
     dependent: :destroy
 
   has_many :requesting_friends,
