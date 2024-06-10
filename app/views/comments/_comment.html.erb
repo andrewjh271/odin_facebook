@@ -5,61 +5,61 @@
 
   <div class='comment-wrapper'>
     <div class='comment-main <%= 'full-width' if edit == comment.id %>'>
-    <div class='comment-bubble'>
-      <div class='comment-header'>
-        <%= link_to comment.author.name, comment.author, class: 'author' %>
-        <div class='comment-author-links'>
-          <%= link_to 'Edit |', edit_post_comment_path(comment.get_post_or_photo_id, comment) if comment.author == current_user && edit != comment.id %>
-          <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: "Are you sure?" } if comment.author == current_user %>
+      <div class='comment-bubble'>
+        <div class='comment-header'>
+          <%= link_to comment.author.name, comment.author, class: 'author' %>
+          <div class='comment-author-links'>
+            <%= link_to 'Edit |', edit_post_comment_path(comment.get_post_or_photo_id, comment) if comment.author == current_user && edit != comment.id %>
+            <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: "Are you sure?" } if comment.author == current_user %>
+          </div>
         </div>
-      </div>
         <% if comment.author == current_user && edit == comment.id %>
           <%= render 'comments/form', comment: comment, submit: 'Update', autofocus: true %>
         <% else %>
           <%= comment.body %>
         <% end %>
-    </div>
-    <div class='comment-footer'>
-      <div class='comment-controls'>
-        <% like = comment.likes.find { |like| like.user_id == current_user.id } %>
-        <span><%= comment.history %></span>
-        <%= link_to 'Reply', new_reply_path(comment.id), class: 'comment-links' %>
-        <% if like %>
-          <%= button_to 'Unlike', like_path(like), method: :delete, class: 'hidden-button comment-links'%>
-        <% else %>
-          <%=  button_to 'Like', likes_path, params: { like: { user_id: current_user, likable_id: comment.id, likable_type: 'Comment' } }, class: 'hidden-button comment-links' %>
+      </div>
+      <div class='comment-footer'>
+        <div class='comment-controls'>
+          <% like = comment.likes.find { |like| like.user_id == current_user.id } %>
+          <span><%= comment.history %></span>
+          <%= link_to 'Reply', new_reply_path(comment.id), class: 'comment-links' %>
+          <% if like %>
+            <%= button_to 'Unlike', like_path(like), method: :delete, class: 'hidden-button comment-links'%>
+          <% else %>
+            <%=  button_to 'Like', likes_path, params: { like: { user_id: current_user, likable_id: comment.id, likable_type: 'Comment' } }, class: 'hidden-button comment-links' %>
+          <% end %>
+        </div>
+        <% comment_likes = comment.likes.size %>
+        <% if comment_likes > 0 %>
+          <div class='comment-like-container'>
+            <ion-icon class='comment-like' name="heart"></ion-icon><!--
+            --><span><%= comment.likes.size %></span>
+          </div>
         <% end %>
       </div>
-      <% comment_likes = comment.likes.size %>
-      <% if comment_likes > 0 %>
-        <div class='comment-like-container'>
-          <ion-icon class='comment-like' name="heart"></ion-icon><!--
-          --><span><%= comment.likes.size %></span>
-        </div>
-      <% end %>
     </div>
-    </div>
-      <% unless reply %>
-        <div class='comment-replies'>
-          <% parent_comment = false %>
-          <% comment.comments.order(:created_at).each do |comment| %>
-              <% if comment.author == current_user && edit == comment.id %>
-                <div class='comment-reply'>
-                  <%= avatar_thumbnail(comment.author, 'comment-avatar') %>
-                  <%= render 'comments/form', comment: comment, submit: 'Update', autofocus: true %>
-                </div>
-              <% else %>
-                <%= render comment, comment: comment, edit: false, reply_to: reply_to %>
-              <% end %>
-              <% parent_comment = comment if reply_to == comment.id %>
-          <% end %>
-          <% if parent_comment %>
+    <% unless reply %>
+      <div class='comment-replies'>
+        <% parent_comment = false %>
+        <% comment.comments.order(:created_at).each do |comment| %>
+            <% if comment.author == current_user && edit == comment.id %>
               <div class='comment-reply'>
-                <%= avatar_thumbnail(current_user, 'comment-avatar') %>
-                <div class='full-width'><%= render 'comments/form', comment: parent_comment.comments.build, submit: 'Reply', autofocus: true, nested: true %></div>
+                <%= avatar_thumbnail(comment.author, 'comment-avatar') %>
+                <%= render 'comments/form', comment: comment, submit: 'Update', autofocus: true %>
               </div>
-          <% end %>
-        </div>
-      <% end %>
+            <% else %>
+              <%= render comment, comment: comment, edit: false, reply_to: reply_to %>
+            <% end %>
+            <% parent_comment = comment if reply_to == comment.id %>
+        <% end %>
+        <% if parent_comment %>
+            <div class='comment-reply'>
+              <%= avatar_thumbnail(current_user, 'comment-avatar') %>
+              <div class='full-width'><%= render 'comments/form', comment: parent_comment.comments.build, submit: 'Reply', autofocus: true, nested: true %></div>
+            </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
