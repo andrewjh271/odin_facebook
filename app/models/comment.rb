@@ -17,6 +17,7 @@ class Comment < ApplicationRecord
   belongs_to :author, class_name: :User
   belongs_to :commentable, polymorphic: true
   has_many :comments,
+    -> { order(:created_at) },
     as: :commentable,
     dependent: :destroy
 

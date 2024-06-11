@@ -1,6 +1,17 @@
 class CommentsController < ApplicationController
   def new
-    @post = Post.find(params[:post_id])
+    @post = Post.includes(
+                   :likes,
+                   comments: [
+                     :likes,
+                     author: { avatar_attachment: :blob},
+                     comments: [
+                        :likes,
+                        author: { avatar_attachment: :blob }
+                     ]
+                   ]
+                 )
+                .find(params[:post_id])
     @autofocus = true;
     render 'posts/show'
   end
@@ -12,7 +23,18 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:post_id])
+    @post = Post.includes(
+                   :likes,
+                   comments: [
+                     :likes,
+                     author: { avatar_attachment: :blob},
+                     comments: [
+                        :likes,
+                        author: { avatar_attachment: :blob }
+                     ]
+                   ]
+                 )
+                .find(params[:post_id])
     @edit = params[:id].to_i
     render 'posts/show'
   end
@@ -25,7 +47,18 @@ class CommentsController < ApplicationController
 
   def new_reply
     @comment = Comment.find(params[:comment_id])
-    @post = Post.find(@comment.get_post_or_photo_id)
+    @post = Post.includes(
+                   :likes,
+                   comments: [
+                     :likes,
+                     author: { avatar_attachment: :blob},
+                     comments: [
+                        :likes,
+                        author: { avatar_attachment: :blob }
+                     ]
+                   ]
+                 )
+                .find(@comment.get_post_or_photo_id)
     @reply_to = params[:comment_id].to_i
     render 'posts/show'
   end

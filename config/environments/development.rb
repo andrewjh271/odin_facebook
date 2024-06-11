@@ -7,6 +7,9 @@ Rails.application.configure do
   # Bullet.growl         = true
     Bullet.rails_logger  = true
     Bullet.add_footer    = true
+
+    Bullet.add_safelist :type => :n_plus_one_query, :class_name => "Comment", :association => :commentable
+    #inconsistent notification with include(:commentable) from Comment#get_post_or_photo_id
   end
 
   # Settings specified here will take precedence over those in config/application.rb.

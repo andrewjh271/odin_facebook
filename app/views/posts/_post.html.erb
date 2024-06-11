@@ -43,9 +43,9 @@
     <% end %>
   </div>
 
-  <% if show_page && post.comments.size > 0 %>
+  <% if show_page && post.comments.length > 0 %>
     <div class='comments'>
-      <% post.comments.order(:created_at).each do |comment| %>
+      <% post.comments.each do |comment| %>
         <%= render comment, comment: comment, edit: edit, reply_to: reply_to %>
         <% if reply_to == comment.id %>
           <div class='comment-reply nest-reply'>

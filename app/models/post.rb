@@ -19,6 +19,7 @@ class Post < ApplicationRecord
     dependent: :destroy
 
   has_many :comments,
+    -> { order(:created_at) },
     as: :commentable,
     dependent: :destroy
 
