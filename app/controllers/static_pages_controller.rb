@@ -1,6 +1,5 @@
 class StaticPagesController < ApplicationController
   def about
-
   end
 
   def search
@@ -9,5 +8,11 @@ class StaticPagesController < ApplicationController
                  .order(:name)
     @posts = Post.where('LOWER(body) LIKE ?', "%#{@query}%")
                  .order(created_at: :desc)
+  end
+
+  def odin_invincible
+  end
+
+  def odin_immutable
   end
 end

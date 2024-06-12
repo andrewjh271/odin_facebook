@@ -19,6 +19,11 @@ RSpec.describe Post, type: :model do
       expect(post.valid?).to be false
     end
 
+    it 'should be valid with body and no photo' do
+      post = FactoryBot.build(:post)
+      expect(post.valid?).to be true
+    end
+
     it 'should be valid if a photo is attached with no body' do
       post = FactoryBot.build(:post, body: '')
       filename = '1.png'

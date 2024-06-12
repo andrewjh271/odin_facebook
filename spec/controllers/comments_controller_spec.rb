@@ -50,7 +50,7 @@ RSpec.describe CommentsController, type: :controller do
   describe 'DELETE #destroy' do
     let(:comment) { FactoryBot.create(:comment) }
 
-    it 'destroys the requested like' do
+    it 'destroys the requested comment' do
       sign_in comment.author
       expect {
         delete :destroy, params: { id: comment.id }
